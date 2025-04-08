@@ -13,10 +13,7 @@ public class Shift {
 	private int endTime;
 	private String priority;
 	
-	
-	
 	public Shift(int id, String day, int startTime, int endTime, String priority) {
-		super();
 		this.id = id;
 		this.day = day;
 		this.startTime = startTime;

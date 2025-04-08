@@ -6,17 +6,19 @@
 
 package main;
 
+import java.util.ArrayList;
+
 public class Employee {
 	private int wantedHours;
 	private int remainingWantedHours;
 	private String name;
-	private int [] hoursAvailable;
+	private ArrayList<Integer> hoursAvailable;
 	
-	
-	public Employee(int wantedHours, int remainingWantedHours, String name, int[] hoursAvailable) {
+	//When creating a new employee, they will automatically start out with the same wanted and remaining hours 
+	public Employee( String name, int wantedHours, ArrayList<Integer> hoursAvailable) {
 		super();
 		this.wantedHours = wantedHours;
-		this.remainingWantedHours = remainingWantedHours;
+		this.remainingWantedHours = wantedHours;
 		this.name = name;
 		this.hoursAvailable = hoursAvailable;
 	}
@@ -40,10 +42,10 @@ public class Employee {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int[] getHoursAvailable() {
+	public ArrayList<Integer> getHoursAvailable() {
 		return hoursAvailable;
 	}
-	public void setHoursAvailable(int[] hoursAvailable) {
+	public void setHoursAvailable(ArrayList<Integer> hoursAvailable) {
 		this.hoursAvailable = hoursAvailable;
 	}   
 	
