@@ -6,7 +6,8 @@
 
 package main;
 
-public class Shift {
+
+public class Shift implements Comparable<Shift>{
 	private int id;
 	private String day;
 	private int startTime;
@@ -20,6 +21,29 @@ public class Shift {
 		this.endTime = endTime;
 		this.priority = priority;
 	}
+	
+	
+	
+	//Overridden compareTo method
+    @Override
+    public int compareTo(Shift other) {
+        // Define the priority order
+        String[] priorityOrder = {"Important", "High", "Low"};
+        int thisPriority = indexOf(priorityOrder, this.priority);
+        int otherPriority = indexOf(priorityOrder, other.priority);
+        return Integer.compare(thisPriority, otherPriority);
+    }
+    //Method to find the index of an element in the queue
+    private int indexOf(String[] array, String value) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
 	public int getId() {
 		return id;
 	}

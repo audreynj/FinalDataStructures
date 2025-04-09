@@ -8,6 +8,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class Main {
 	
@@ -15,7 +16,9 @@ public class Main {
 		
 	Shift shift1 = new Shift(1, "Monday", 1, 5, "High");
 	
-	Shift shift2 = new Shift(2, "Tuesday", 1, 4, "High");
+	Shift shift2 = new Shift(2, "Tuesday", 1, 4, "Important");
+
+	Shift shift3 = new Shift(3, "Tuesday", 1, 6, "Low");
 
 	
 	ArrayList<Employee> allEmployees = new ArrayList<Employee>();
@@ -34,6 +37,17 @@ public class Main {
 	//Need to add a method that calls this with a list of all employees
 	assigner.determineEligibleEmployees(allEmployees, selectedShift);
 	
+	
+	
+	
+	
+	
+	//Will move this later
+	PriorityQueue<Shift> allShifts = new PriorityQueue<Shift>();
+	allShifts.add(shift1);
+	allShifts.add(shift2);	
+	allShifts.add(shift3);
+	System.out.println(allShifts.peek().getId());
 	}
 }
 
