@@ -57,6 +57,22 @@ class AssignShiftToEmployeeTests {
 		//ASSERT
 		assertEquals(expected, actual);
 	}
+	@Test
+	void availableDayNotAllHours() {
+		//ARRANGE
+		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(2,3,1,5,1,5,0,0,0,0,0,0)));
+		Shift testShift = new Shift(1, "Monday", 1, 5, "High");
+		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
+		boolean actual, expected;
+		
+		//ACT
+		actual = assigner.ifEmployeeWork(testShift, testEmployee);
+	    expected = false;
+		
+		//ASSERT
+		assertEquals(expected, actual);
+	}
+	
 	
 	@Test
 	void availableExactHours() {
@@ -78,8 +94,8 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void availableInTimeFrame() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(2,4,1,5,1,5,0,0,0,0,0,0)));
-		Shift testShift = new Shift(1, "Monday", 1, 5, "High");
+		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
+		Shift testShift = new Shift(1, "Monday", 3, 4, "High");
 		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 		boolean actual, expected;
 		

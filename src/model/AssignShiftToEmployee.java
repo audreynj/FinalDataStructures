@@ -45,9 +45,9 @@ public class AssignShiftToEmployee {
 				break;
 			}
 			
-			if(enteredEmployee.getHoursAvailable().get(enteredDay)>=enteredShift.getStartTime())
+			if(enteredEmployee.getHoursAvailable().get(enteredDay)<=enteredShift.getStartTime())
 			{
-				if(enteredEmployee.getHoursAvailable().get(enteredDay+1)<=enteredShift.getEndTime())
+				if(enteredEmployee.getHoursAvailable().get(enteredDay+1)>=enteredShift.getEndTime())
 			{
 				//Have another test here to see if a shift the employee is already working would overlap 
 				return true;
