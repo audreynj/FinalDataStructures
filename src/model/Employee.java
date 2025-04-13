@@ -4,7 +4,7 @@
 * @since 1.0
 */
 
-package main;
+package model;
 
 import java.util.ArrayList;
 
