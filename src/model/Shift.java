@@ -13,6 +13,7 @@ public class Shift implements Comparable<Shift>{
 	private int startTime;
 	private int endTime;
 	private String priority;
+	private int shiftLength;
 	
 	public Shift(int id, String day, int startTime, int endTime, String priority) {
 		this.id = id;
@@ -20,6 +21,7 @@ public class Shift implements Comparable<Shift>{
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.priority = priority;
+		this.shiftLength = endTime - startTime;
 	}
 	
 	
@@ -74,6 +76,15 @@ public class Shift implements Comparable<Shift>{
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
+	public int getShiftLength() {
+		return shiftLength;
+	}
+	public void setShiftLength(int shiftLength) {
+		this.shiftLength = shiftLength;
+	}
+	
+	
+	
 	
 	
 	

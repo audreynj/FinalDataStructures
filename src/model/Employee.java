@@ -13,6 +13,8 @@ public class Employee {
 	private int remainingWantedHours;
 	private String name;
 	private ArrayList<Integer> hoursAvailable;
+	private ArrayList<Shift> shiftsTaken;
+
 	
 	//When creating a new employee, they will automatically start out with the same wanted and remaining hours 
 	public Employee( String name, int wantedHours, ArrayList<Integer> hoursAvailable) {
@@ -21,14 +23,16 @@ public class Employee {
 		this.remainingWantedHours = wantedHours;
 		this.name = name;
 		this.hoursAvailable = hoursAvailable;
+		this.shiftsTaken = new ArrayList<Shift>();
 	}
 	
 	
 	public int getWantedHours() {
 		return wantedHours;
 	}
+
 	public void setWantedHours(int wantedHours) {
-		wantedHours = wantedHours;
+		this.wantedHours = wantedHours;
 	}
 	public int getRemainingWantedHours() {
 		return remainingWantedHours;
@@ -49,6 +53,27 @@ public class Employee {
 		this.hoursAvailable = hoursAvailable;
 	}   
 	
+	public ArrayList<Shift> getShiftsTaken() {
+		return shiftsTaken;
+	}
+	
+	public String getShiftsTakenMessage() {
+		String allShifts = "";
+		for(int i = 0; i<shiftsTaken.size(); i++) {
+			allShifts = allShifts + "Id: " + shiftsTaken.get(i).getId() + ", Day: " + shiftsTaken.get(i).getDay() + ", Start Time: " + shiftsTaken.get(i).getStartTime() + ", End Time: " + shiftsTaken.get(i).getEndTime() + " -- ";
+		}
+		return allShifts;
+	}
+
+	public void setShiftsTaken(ArrayList<Shift> shiftsTaken) {
+		this.shiftsTaken = shiftsTaken;
+	}
+	
+	public void addShift(Shift enteredShift) {
+		this.shiftsTaken.add(enteredShift);
+		
+		this.remainingWantedHours = this.remainingWantedHours - enteredShift.getShiftLength();
+	}
 	
 }
 

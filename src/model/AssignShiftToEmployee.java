@@ -7,9 +7,11 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class AssignShiftToEmployee {
 
+	//Need to call this when looking at AssignShiftPanel
 	public ArrayList<Employee> determineEligibleEmployeesList(ArrayList<Employee> allEmployees, Shift selectedShift) {
 		
 		
@@ -48,11 +50,25 @@ public class AssignShiftToEmployee {
 			if(enteredEmployee.getHoursAvailable().get(enteredDay)<=enteredShift.getStartTime())
 			{
 				if(enteredEmployee.getHoursAvailable().get(enteredDay+1)>=enteredShift.getEndTime())
-			{
-				//Have another test here to see if a shift the employee is already working would overlap 
-				return true;
-			}	
-		}
+				{
+					//If the employee has a shift for that day and time
+					for(Shift selectedShift: enteredEmployee.getShiftsTaken()) 
+					{
+						if(selectedShift.getDay() == enteredShift.getDay()) {
+							if(selectedShift.getStartTime()<=enteredShift.getStartTime())
+							{
+								if(selectedShift.getEndTime()>=enteredShift.getEndTime()) 
+								{
+									return false;
+								}
+							}
+						}	
+					}
+					return true;
+					
+					
+				}	
+			}
 		}
 		return false;
 	}
@@ -66,6 +82,13 @@ public class AssignShiftToEmployee {
 		
 			//Check to see how many hours they want vs how many they have
 			//Larger difference is higher than ones with almost all their hours 
+	}
+	
+	
+	public void assignShift(Employee selectedEmployee, Shift selectedShift, PriorityQueue<Shift> allAvailableAShifts) {
+		selectedEmployee.addShift(selectedShift);
+		
+		allAvailableAShifts.remove(selectedShift);
 	}
 			
 		
