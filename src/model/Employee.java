@@ -9,6 +9,7 @@ package model;
 import java.util.ArrayList;
 
 public class Employee {
+	private int id;
 	private int wantedHours;
 	private int remainingWantedHours;
 	private String name;
@@ -17,8 +18,8 @@ public class Employee {
 
 	
 	//When creating a new employee, they will automatically start out with the same wanted and remaining hours 
-	public Employee( String name, int wantedHours, ArrayList<Integer> hoursAvailable) {
-		super();
+	public Employee(int id, String name, int wantedHours, ArrayList<Integer> hoursAvailable) {
+		this.id = id;
 		this.wantedHours = wantedHours;
 		this.remainingWantedHours = wantedHours;
 		this.name = name;
@@ -26,11 +27,16 @@ public class Employee {
 		this.shiftsTaken = new ArrayList<Shift>();
 	}
 	
-	
-	public int getWantedHours() {
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	int getWantedHours() {
 		return wantedHours;
 	}
-
 	public void setWantedHours(int wantedHours) {
 		this.wantedHours = wantedHours;
 	}
@@ -74,6 +80,17 @@ public class Employee {
 		
 		this.remainingWantedHours = this.remainingWantedHours - enteredShift.getShiftLength();
 	}
+
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", wantedHours=" + wantedHours + ", remainingWantedHours=" + remainingWantedHours
+				+ ", name=" + name + ", hoursAvailable=" + hoursAvailable + ", shiftsTaken=" + shiftsTaken + "]";
+	}
+	
+	
+	
+	
 	
 }
 

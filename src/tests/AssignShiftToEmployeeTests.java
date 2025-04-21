@@ -29,7 +29,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testNotAvailableDay() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(0,0,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(0,0,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift = new Shift(1, "Monday", 1, 5, "High");
 		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 		boolean actual, expected;
@@ -46,7 +46,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testAvailableDayNotHours() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(6,8,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(6,8,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift = new Shift(1, "Monday", 1, 5, "High");
 		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 		boolean actual, expected;
@@ -61,7 +61,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testAvailableDayNotAllHours() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(2,3,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(2,3,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift = new Shift(1, "Monday", 1, 5, "High");
 		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 		boolean actual, expected;
@@ -78,7 +78,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testAvailableExactHours() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift = new Shift(1, "Monday", 1, 5, "High");
 		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 		boolean actual, expected;
@@ -95,7 +95,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testAvailableInTimeFrame() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift = new Shift(1, "Monday", 3, 4, "High");
 		AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 		boolean actual, expected;
@@ -112,7 +112,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testShiftsOverlap() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift1 = new Shift(1, "Monday", 3, 4, "High");
 		Shift testShift2 = new Shift(2, "Monday", 2, 6, "Low");
 
@@ -137,7 +137,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testShiftsNotOverlap() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(1,6,1,6,1,6,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(1,6,1,6,1,6,0,0,0,0,0,0)));
 		Shift testShift1 = new Shift(1, "Monday", 3, 4, "High");
 		Shift testShift2 = new Shift(2, "Monday", 5, 6, "Low");
 
@@ -162,7 +162,7 @@ class AssignShiftToEmployeeTests {
 	@Test
 	void testAssignShifts() {
 		//ARRANGE
-		Employee testEmployee = new Employee("Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
+		Employee testEmployee = new Employee(1, "Steve", 15, new ArrayList<Integer>(Arrays.asList(1,5,1,5,1,5,0,0,0,0,0,0)));
 		Shift testShift1 = new Shift(1, "Monday", 3, 4, "High");
 		Shift testShift2 = new Shift(2, "Tuesday", 7, 9, "Low");
 

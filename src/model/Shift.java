@@ -8,6 +8,7 @@ package model;
 
 
 public class Shift implements Comparable<Shift>{
+	
 	private int id;
 	private String day;
 	private int startTime;
@@ -17,6 +18,17 @@ public class Shift implements Comparable<Shift>{
 	
 	public Shift(int id, String day, int startTime, int endTime, String priority) {
 		this.id = id;
+		this.day = day;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.priority = priority;
+		this.shiftLength = endTime - startTime;
+	}
+	
+	
+	public Shift(String day, int startTime, int endTime, String priority) {
+		//HAVE THIS FIGURE OUT NEXT NUMBER FOR ID USING ALL SHIFTS
+		//this.id = 
 		this.day = day;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -84,7 +96,11 @@ public class Shift implements Comparable<Shift>{
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return "Shift [id=" + id + ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", priority="
+				+ priority + ", shiftLength=" + shiftLength + "]";
+	}
 	
 	
 	

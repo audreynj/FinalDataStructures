@@ -6,6 +6,7 @@
 
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import java.util.PriorityQueue;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import model.Employee;
 import model.Shift;
@@ -27,8 +31,14 @@ public class AssignShiftPanel extends JPanel{
 	//Confirm button
 	
 	//Will change this button
-	private JButton startPanelButton = new JButton("Assign");
+	private JButton assignButton = new JButton("Assign");
+	private JButton clearButton = new JButton("Clear");
 
+	
+	private JTextField employeeIdField;
+	
+	//May change size
+	private JTextArea viewEligibleEmployeesArea = new JTextArea(5, 50);
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
@@ -53,13 +63,30 @@ public class AssignShiftPanel extends JPanel{
 		
 		// Creates a ButtonListener
 		ButtonListener bl = new ButtonListener();
-
-		// Adds the ButtonListener to both JButtons
-		startPanelButton.addActionListener(bl);
+		clearButton.addActionListener(bl);
 
 		
+		// Adds the ButtonListener to both JButtons
+		assignButton.addActionListener(bl);
+
+		//Use JScrollPane for JTextArea and setEditable(false)
+		viewEligibleEmployeesArea.setText("Hi");	
+
+		viewEligibleEmployeesArea.setEnabled(false);
+		viewEligibleEmployeesArea.setDisabledTextColor(Color.BLACK);
+		
+		employeeIdField = new JTextField(16);
+
+
+		
+		JScrollPane scroll = new JScrollPane(viewEligibleEmployeesArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		add(scroll);
+		
+		
 		// Adds the buttons to the panel
-		add(startPanelButton);
+		add(assignButton);
+		add(employeeIdField);
+
 
 	}
 		

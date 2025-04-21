@@ -11,8 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import model.Employee;
 import model.Shift;
@@ -28,11 +31,28 @@ public class AddShiftPanel extends JPanel{
 	//Back button
 
 	//Will change this button
-	private JButton startPanelButton = new JButton("Add Shift");
+	private JButton addShiftButton = new JButton("Add Shift");
+	private JButton clearButton = new JButton("Clear");
+
+	
+	
+	private JTextField dayField;
+	private JTextField startTimeField;
+	private JTextField endTimeField;
+
+	
+	
+	private ButtonGroup priorityGroup;
+	
+	private JRadioButton priorityImportant;
+	private JRadioButton priorityHigh;
+	private JRadioButton priorityLow;
 
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
+	
+	
 	
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
@@ -47,7 +67,8 @@ public class AddShiftPanel extends JPanel{
 		this.allShifts = allShifts;
 	}
 	
-
+	
+	
 	public AddShiftPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
@@ -56,11 +77,47 @@ public class AddShiftPanel extends JPanel{
 		ButtonListener bl = new ButtonListener();
 
 		// Adds the ButtonListener to both JButtons
-		startPanelButton.addActionListener(bl);
+		addShiftButton.addActionListener(bl);
+		clearButton.addActionListener(bl);
 
 		
+		//Textfields
+		dayField = new JTextField(16);
+		startTimeField = new JTextField(16);
+		endTimeField = new JTextField(16);
+		
+		add(dayField);
+		add(startTimeField);
+		add(endTimeField);
+
+
+		
+		//Radio button
+		priorityGroup = new ButtonGroup();
+		
+		priorityImportant = new JRadioButton();
+		priorityHigh = new JRadioButton();
+		priorityLow = new JRadioButton();
+
+		priorityImportant.setText("Important"); 
+		priorityHigh.setText("High"); 
+		priorityLow.setText("Low"); 		
+		
+		
+		this.add(priorityImportant);
+		this.add(priorityHigh);
+		this.add(priorityLow);
+		
+		priorityGroup.add(priorityImportant); 
+		priorityGroup.add(priorityHigh);
+		priorityGroup.add(priorityLow);
+		
+		
+		
 		// Adds the buttons to the panel
-		add(startPanelButton);
+		add(addShiftButton);
+		add(clearButton);
+
 
 	}
 		
@@ -68,10 +125,51 @@ public class AddShiftPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == addShiftButton) {
+					try {
+						String priority = "";
+						if(priorityImportant.isSelected()) {
+							priority = priorityImportant.getText();
+						}
+						else if(priorityHigh.isSelected()) {
+							priority = priorityHigh.getText();
 
+						}
+						else if(priorityLow.isSelected()) {
+							priority = priorityLow.getText();
+
+						}
+						else {
+							//CREATE A VALIDATION HERE
+						}
+						//NEED TO CHECK IF THE DAY IS A DAY OF THE WEEK
+						
+						Shift newShift = new Shift(dayField.getText(), Integer.parseInt(startTimeField.getText()),
+								Integer.parseInt(endTimeField.getText()),  priority);
+
+						allShifts.add(newShift);
+
+						clearFields();
+												
+					} catch (Exception exception) {
+						clearFields();
+					}
+				}
+				// If the clearButton was clicked it will call the clearFields method
+				if (e.getSource() == clearButton) {
+					clearFields();
+				}
 			}
 
 	
 	}
+		
+		
+	public void clearFields() {
+		dayField.setText("");
+		startTimeField.setText("");
+		endTimeField.setText("");
+		priorityGroup.setSelected(null, getFocusTraversalKeysEnabled());
+		}
 }
 

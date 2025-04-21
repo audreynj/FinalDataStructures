@@ -35,8 +35,8 @@ public class StartProgram {
 	allAvailableAShifts.add(shift3);
 	
 	
-	Employee employee1 = new Employee("Bob", 10, new ArrayList<Integer>(Arrays.asList(1,4,1,4,1,4,1,4,1,4,1,4)));
-	Employee employee2 = new Employee("Jane", 10, new ArrayList<Integer>(Arrays.asList(2,4,0,3,0,0,0,0,0,0,0,0)));
+	Employee employee1 = new Employee(1, "Bob", 10, new ArrayList<Integer>(Arrays.asList(1,4,1,4,1,4,1,4,1,4,1,4)));
+	Employee employee2 = new Employee(2, "Jane", 10, new ArrayList<Integer>(Arrays.asList(2,4,0,3,0,0,0,0,0,0,0,0)));
 		
 	ArrayList<Employee> allEmployees = new ArrayList<Employee>();
 	allEmployees.add(employee1);
@@ -44,21 +44,7 @@ public class StartProgram {
 
 	
 	
-	/**
-	//Setting up GUI
-	JFrame frame = new JFrame();
-	JPanel allPanels = new JPanel(new CardLayout());
-
-	StartPanel startPanel = new StartPanel(allEmployees, allAvailableAShifts);
 	
-	allPanels.add(startPanel, "1");
-
-	// Sets the title, size, closing default, and visibility of the JFrame
-	frame.setTitle("Assign Shift and Calendar");
-	frame.setSize(500, 400);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setVisible(true);
-	**/
 	
 	new ProgramFrame(allEmployees, allAvailableAShifts);
 	
