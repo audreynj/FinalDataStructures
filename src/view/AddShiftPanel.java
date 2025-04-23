@@ -169,7 +169,7 @@ public class AddShiftPanel extends JPanel{
 		dayField.setText("");
 		startTimeField.setText("");
 		endTimeField.setText("");
-		priorityGroup.setSelected(null, getFocusTraversalKeysEnabled());
+		priorityGroup.clearSelection();
 		}
 }
 

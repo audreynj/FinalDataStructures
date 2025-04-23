@@ -28,15 +28,17 @@ public class StartProgram {
 	Shift shift1 = new Shift(1, "Monday", 1, 5, "High");
 	Shift shift2 = new Shift(2, "Tuesday", 1, 4, "Important");
 	Shift shift3 = new Shift(3, "Tuesday", 6, 8, "Low");
+	Shift shift4 = new Shift(4, "Monday", 6, 8, "Important");
 
 	PriorityQueue<Shift> allAvailableAShifts = new PriorityQueue<Shift>();
 	allAvailableAShifts.add(shift1);
 	allAvailableAShifts.add(shift2);	
 	allAvailableAShifts.add(shift3);
+	allAvailableAShifts.add(shift4);
 	
 	
 	Employee employee1 = new Employee(1, "Bob", 10, new ArrayList<Integer>(Arrays.asList(1,4,1,4,1,4,1,4,1,4,1,4)));
-	Employee employee2 = new Employee(2, "Jane", 10, new ArrayList<Integer>(Arrays.asList(2,4,0,3,0,0,0,0,0,0,0,0)));
+	Employee employee2 = new Employee(2, "Jane", 10, new ArrayList<Integer>(Arrays.asList(1,10,1,4,0,0,0,0,0,0,0,0)));
 		
 	ArrayList<Employee> allEmployees = new ArrayList<Employee>();
 	allEmployees.add(employee1);

@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import model.AssignShiftToEmployee;
 import model.Employee;
 import model.Shift;
 import view.ViewAllEmployeesPanel.ButtonListener;
@@ -33,6 +34,9 @@ public class AssignShiftPanel extends JPanel{
 	//Will change this button
 	private JButton assignButton = new JButton("Assign");
 	private JButton clearButton = new JButton("Clear");
+	
+	private String viewEligibleEmployeesAreaText = "";
+	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 
 	
 	private JTextField employeeIdField;
@@ -70,7 +74,11 @@ public class AssignShiftPanel extends JPanel{
 		assignButton.addActionListener(bl);
 
 		//Use JScrollPane for JTextArea and setEditable(false)
-		viewEligibleEmployeesArea.setText("Hi");	
+		for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
+			viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
+		}
+		
+		viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);	
 
 		viewEligibleEmployeesArea.setEnabled(false);
 		viewEligibleEmployeesArea.setDisabledTextColor(Color.BLACK);
@@ -85,6 +93,7 @@ public class AssignShiftPanel extends JPanel{
 		
 		// Adds the buttons to the panel
 		add(assignButton);
+		add(clearButton);
 		add(employeeIdField);
 
 
@@ -94,11 +103,43 @@ public class AssignShiftPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				if (e.getSource() == assignButton) {
+					try {
+						
+						for(Employee selectedEmployee: allEmployees) {
+							if(selectedEmployee.getId() == Integer.parseInt(employeeIdField.getText())){
+								assigner.assignShift(selectedEmployee, allShifts.peek(), allShifts);
+							}
+						}
+						
+						clearFields();
+												
+					} catch (Exception exception) {
+						clearFields();
+					}
+				}
+				// If the clearButton was clicked it will call the clearFields method
+				else{
+					clearFields();
+				}
 			}
 
 	
 	}
+		
+		
+		public void clearFields() {
+			employeeIdField.setText("");
+			viewEligibleEmployeesAreaText = ("");
+			
+			//viewEligibleEmployeesArea.setText();
+			
+			for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
+				viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
+			}
+			
+			viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);
+			}
 	
 }
 
