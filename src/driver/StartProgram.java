@@ -37,12 +37,16 @@ public class StartProgram {
 	allAvailableAShifts.add(shift4);
 	
 	
-	Employee employee1 = new Employee(1, "Bob", 10, new ArrayList<Integer>(Arrays.asList(1,4,1,4,1,4,1,4,1,4,1,4)));
-	Employee employee2 = new Employee(2, "Jane", 10, new ArrayList<Integer>(Arrays.asList(1,10,1,4,0,0,0,0,0,0,0,0)));
-		
+	Employee employee1 = new Employee(199, "Bob", 10, new ArrayList<Integer>(Arrays.asList(1,4,1,4,1,4,1,4,1,4,1,4)));
+	Employee employee2 = new Employee(101, "Jane", 10, new ArrayList<Integer>(Arrays.asList(1,10,1,4,0,0,0,0,0,0,0,0)));
+	Employee employee3 = new Employee(210, "Jane", 10, new ArrayList<Integer>(Arrays.asList(1,10,1,4,0,0,0,0,0,0,0,0)));
+	
+	
 	ArrayList<Employee> allEmployees = new ArrayList<Employee>();
 	allEmployees.add(employee1);
 	allEmployees.add(employee2);
+	allEmployees.add(employee3);
+
 
 	
 	

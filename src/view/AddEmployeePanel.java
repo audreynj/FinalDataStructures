@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -33,23 +35,39 @@ public class AddEmployeePanel extends JPanel{
 	private JButton addEmployeeButton = new JButton("Add employee");
 	private JButton clearButton = new JButton("Clear");
 
+	private JLabel idLabel = new JLabel("ID: ");
+	private JLabel wantedHoursLabel = new JLabel("Wanted Hours: ");
+	private JLabel nameLabel = new JLabel("Name: ");
 	
 	private JTextField idField;
 	private JTextField wantedHoursField;
-	private JTextField name;
+	private JTextField nameField;
 	
-	private JTextField mStart;
-	private JTextField mEnd;
-	private JTextField tuStart;
-	private JTextField tuEnd;
-	private JTextField wStart;
-	private JTextField wEnd;
-	private JTextField thStart;
-	private JTextField thEnd;
-	private JTextField fStart;
-	private JTextField fEnd;
-	private JTextField sStart;
-	private JTextField sEnd;
+	private JLabel mStartLabel = new JLabel("Monday Start Time: ");
+	private JLabel mEndLabel = new JLabel("Monday End Time: ");
+	private JLabel tuStartLabel = new JLabel("Tuesday Start Time: ");
+	private JLabel tuEndLabel = new JLabel("Tuesday End Time: ");
+	private JLabel wStartLabel = new JLabel("Wednesday Start Time: ");
+	private JLabel wEndLabel = new JLabel("Wednesday End Time: ");
+	private JLabel thStartLabel = new JLabel("Thursday Start Time: ");
+	private JLabel thEndLabel = new JLabel("Thursday End Time: ");
+	private JLabel fStartLabel = new JLabel("Friday Start Time");
+	private JLabel fEndLabel = new JLabel("Friday End Time: ");
+	private JLabel sStartLabel = new JLabel("Saturday Start Time: ");
+	private JLabel sEndLabel = new JLabel("Saturday End Time");
+	
+	private JTextField mStartField;
+	private JTextField mEndField;
+	private JTextField tuStartField;
+	private JTextField tuEndField;
+	private JTextField wStartField;
+	private JTextField wEndField;
+	private JTextField thStartField;
+	private JTextField thEndField;
+	private JTextField fStartField;
+	private JTextField fEndField;
+	private JTextField sStartField;
+	private JTextField sEndField;
 
 	
 	
@@ -83,44 +101,70 @@ public class AddEmployeePanel extends JPanel{
 		clearButton.addActionListener(bl);
 
 
-		//Textfields
-		idField = new JTextField(16);
-		wantedHoursField = new JTextField(16);
-		name = new JTextField(16);
+		//Textfields and Labels
+		idField = new JTextField(4);
+		wantedHoursField = new JTextField(4);
+		nameField = new JTextField(16);
 		
-		mStart = new JTextField(16);
-		mEnd = new JTextField(16);
-		tuStart = new JTextField(16);
-		tuEnd = new JTextField(16);
-		wStart = new JTextField(16);
-		wEnd = new JTextField(16);
-		thStart = new JTextField(16);
-		thEnd = new JTextField(16);
-		fStart = new JTextField(16);
-		fEnd = new JTextField(16);
-		sStart = new JTextField(16);
-		sEnd = new JTextField(16);
+		mStartField = new JTextField(4);
+		mEndField = new JTextField(4);
+		tuStartField = new JTextField(4);
+		tuEndField = new JTextField(4);
+		wStartField = new JTextField(4);
+		wEndField = new JTextField(4);
+		thStartField = new JTextField(4);
+		thEndField = new JTextField(4);
+		fStartField = new JTextField(4);
+		fEndField = new JTextField(4);
+		sStartField = new JTextField(4);
+		sEndField = new JTextField(4);
 		
 				
+		add(idLabel);
 		add(idField);
+		add(wantedHoursLabel);
 		add(wantedHoursField);
-		add(name);
+		add(nameLabel);
+		add(nameField);
 		
-		add(mStart);
-		add(mEnd);
-		add(tuStart);
-		add(tuEnd);
-		add(wStart);
-		add(wEnd);
-		add(thStart);
-		add(thEnd);
-		add(fStart);
-		add(fEnd);
-		add(sStart);
-		add(sEnd);
+		add(mStartLabel);
+		add(mStartField);
+		
+		add(mEndLabel);
+		add(mEndField);
+		
+		add(tuStartLabel);
+		add(tuStartField);
+		
+		add(tuEndLabel);
+		add(tuEndField);
+
+		add(wStartLabel);
+		add(wStartField);
+
+		add(wEndLabel);
+		add(wEndField);
+
+		add(thStartLabel);
+		add(thStartField);
+
+		add(thEndLabel);
+		add(thEndField);
+
+		add(fStartLabel);
+		add(fStartField);
+
+		add(fEndLabel);
+		add(fEndField);
+
+		add(sStartLabel);
+		add(sStartField);
+
+		add(sEndLabel);
+		add(sEndField);
 
 		
-		
+			
 		// Adds the buttons to the panel
 		add(addEmployeeButton);
 		add(clearButton);
@@ -136,29 +180,31 @@ public class AddEmployeePanel extends JPanel{
 				try {
 					ArrayList<Integer> hoursAvailable =  new ArrayList<>() {
 						{
-							add(Integer.parseInt(mStart.getText()));
-							add(Integer.parseInt(mEnd.getText()));
-							add(Integer.parseInt(tuStart.getText()));
-							add(Integer.parseInt(tuEnd.getText()));
-							add(Integer.parseInt(wStart.getText()));
-							add(Integer.parseInt(wEnd.getText()));
-							add(Integer.parseInt(thStart.getText()));
-							add(Integer.parseInt(thEnd.getText()));
-							add(Integer.parseInt(fStart.getText()));
-							add(Integer.parseInt(fEnd.getText()));
-							add(Integer.parseInt(sStart.getText()));
-							add(Integer.parseInt(sEnd.getText()));
+							add(Integer.parseInt(mStartField.getText()));
+							add(Integer.parseInt(mEndField.getText()));
+							add(Integer.parseInt(tuStartField.getText()));
+							add(Integer.parseInt(tuEndField.getText()));
+							add(Integer.parseInt(wStartField.getText()));
+							add(Integer.parseInt(wEndField.getText()));
+							add(Integer.parseInt(thStartField.getText()));
+							add(Integer.parseInt(thEndField.getText()));
+							add(Integer.parseInt(fStartField.getText()));
+							add(Integer.parseInt(fEndField.getText()));
+							add(Integer.parseInt(sStartField.getText()));
+							add(Integer.parseInt(sEndField.getText()));
 
 						}
 					};
 					
-					Employee newEmployee = new Employee(Integer.parseInt(idField.getText()), name.getText(), Integer.parseInt(wantedHoursField.getText()), hoursAvailable);
+					Employee newEmployee = new Employee(Integer.parseInt(idField.getText()), nameField.getText(), Integer.parseInt(wantedHoursField.getText()), hoursAvailable);
 
 					allEmployees.add(newEmployee);
 
 					clearFields();
 				}
 				catch(Exception exception) {
+					JOptionPane.showMessageDialog(AddEmployeePanel.this, "Please Enter All Valid Values", 
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
 					clearFields();
 				}
 			}
@@ -172,20 +218,20 @@ public class AddEmployeePanel extends JPanel{
 		public void clearFields() {
 			idField.setText("");
 			wantedHoursField.setText("");
-			name.setText("");
+			nameField.setText("");
 			
-			mStart.setText("");
-			mEnd.setText("");
-			tuStart.setText("");
-			tuEnd.setText("");
-			wStart.setText("");
-			wEnd.setText("");
-			thStart.setText("");
-			thEnd.setText("");
-			fStart.setText("");
-			fEnd.setText("");
-			sStart.setText("");
-			sEnd.setText("");
+			mStartField.setText("");
+			mEndField.setText("");
+			tuStartField.setText("");
+			tuEndField.setText("");
+			wStartField.setText("");
+			wEndField.setText("");
+			thStartField.setText("");
+			thEndField.setText("");
+			fStartField.setText("");
+			fEndField.setText("");
+			sStartField.setText("");
+			sEndField.setText("");
 	}
 }
 	

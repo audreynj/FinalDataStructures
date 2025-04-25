@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -35,6 +37,8 @@ public class AssignShiftPanel extends JPanel{
 	private JButton assignButton = new JButton("Assign");
 	private JButton clearButton = new JButton("Clear");
 	
+	private JLabel assignLabel = new JLabel("Assign to Employee(Use ID): ");
+	
 	private String viewEligibleEmployeesAreaText = "";
 	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 
@@ -42,7 +46,7 @@ public class AssignShiftPanel extends JPanel{
 	private JTextField employeeIdField;
 	
 	//May change size
-	private JTextArea viewEligibleEmployeesArea = new JTextArea(5, 50);
+	private JTextArea viewEligibleEmployeesArea = new JTextArea(10, 70);
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
@@ -94,6 +98,7 @@ public class AssignShiftPanel extends JPanel{
 		// Adds the buttons to the panel
 		add(assignButton);
 		add(clearButton);
+		add(assignLabel);
 		add(employeeIdField);
 
 
@@ -115,6 +120,8 @@ public class AssignShiftPanel extends JPanel{
 						clearFields();
 												
 					} catch (Exception exception) {
+						JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID", 
+                                "ERROR", JOptionPane.ERROR_MESSAGE);
 						clearFields();
 					}
 				}

@@ -31,7 +31,7 @@ public class ViewAllRemainingShiftsPanel extends JPanel{
 
 	
 	//May change size
-	private JTextArea viewRemainingShiftsArea = new JTextArea(5, 50);
+	private JTextArea viewRemainingShiftsArea = new JTextArea(10, 70);
 
 	
 	private ArrayList<Employee> allEmployees;

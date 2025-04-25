@@ -26,7 +26,7 @@ public class ViewAllEmployeesPanel extends JPanel{
 	private JButton updateViewButton = new JButton("Update Employees");
 
 	//May change size
-	private JTextArea viewEmployeesArea = new JTextArea(5, 50);
+	private JTextArea viewEmployeesArea = new JTextArea(10, 70);
 
 	
 	private ArrayList<Employee> allEmployees;
@@ -66,13 +66,7 @@ public class ViewAllEmployeesPanel extends JPanel{
 
 		
 		//Use JScrollPane for JTextArea and setEditable(false)
-		String viewEmployeesAreaText = "";	
-		
-		for(Employee selectedEmployee: allEmployees) {
-			viewEmployeesAreaText += selectedEmployee.toString() + "\n";
-		}
-		
-		viewEmployeesArea.setText(viewEmployeesAreaText);	
+		SetTextArea();
 
 		viewEmployeesArea.setEnabled(false);
 		viewEmployeesArea.setDisabledTextColor(Color.BLACK);
@@ -87,18 +81,43 @@ public class ViewAllEmployeesPanel extends JPanel{
 
 	}
 		
-	//Will add removeEmployee() later, might have button in this file
+	//This method uses Selection Sort
+	public void SetTextArea() {
+		viewEmployeesAreaText = "";
+
+		for (int i = 0; i < allEmployees.size() - 1; i++) {
+              
+            // Find the minimum element in unsorted array
+            int min_idx = i;
+          
+            for (int j = i + 1; j < allEmployees.size(); j++) {
+                if (allEmployees.get(j).getId() < allEmployees.get(min_idx).getId())
+                    min_idx = j;
+            }
+
+            // Swap the found minimum element with the first
+            // element
+            Employee temp = allEmployees.get(min_idx);
+            allEmployees.set(min_idx, allEmployees.get(i));
+            allEmployees.set(i, temp);
+        }
+		
+		
+		for(Employee selectedEmployee: allEmployees) {
+			viewEmployeesAreaText += selectedEmployee.toString() + "\n";
+		}
+		
+		viewEmployeesArea.setText(viewEmployeesAreaText);	
+		
+	}
+
+		//Will add removeEmployee() later, might have button in this file
 		class ButtonListener implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == updateViewButton) {
-					viewEmployeesAreaText = "";
-					for(Employee selectedEmployee: allEmployees) {
-						viewEmployeesAreaText += selectedEmployee.toString() + "\n";
-					}
-					
-					viewEmployeesArea.setText(viewEmployeesAreaText);	
+					SetTextArea();	
 			}
 
 		}

@@ -6,6 +6,7 @@
 
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.PriorityQueue;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import model.Employee;
 import model.Shift;
@@ -22,6 +24,8 @@ public class StartPanel extends JPanel{
 
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
+	
+	private JTextArea startPanelArea = new JTextArea(10, 70);
 	
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
@@ -43,9 +47,14 @@ public class StartPanel extends JPanel{
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
-		JLabel label = new JLabel("Start");
 		
-		add(label);
+		startPanelArea.setText("This is the first page");	
+
+		startPanelArea.setEnabled(false);
+		startPanelArea.setDisabledTextColor(Color.BLACK);
+		
+		
+		add(startPanelArea);
 		
 	}
 

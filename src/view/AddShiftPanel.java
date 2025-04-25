@@ -13,6 +13,8 @@ import java.util.PriorityQueue;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -33,6 +35,10 @@ public class AddShiftPanel extends JPanel{
 	//Will change this button
 	private JButton addShiftButton = new JButton("Add Shift");
 	private JButton clearButton = new JButton("Clear");
+
+	private JLabel dayLabel = new JLabel("Day: ");
+	private JLabel startTimeLabel = new JLabel("Start Time: ");
+	private JLabel endTimeLabel = new JLabel("End Time: ");
 
 	
 	
@@ -83,11 +89,15 @@ public class AddShiftPanel extends JPanel{
 		
 		//Textfields
 		dayField = new JTextField(16);
-		startTimeField = new JTextField(16);
-		endTimeField = new JTextField(16);
+		startTimeField = new JTextField(4);
+		endTimeField = new JTextField(4);
 		
+		
+		add(dayLabel);
 		add(dayField);
+		add(startTimeLabel);
 		add(startTimeField);
+		add(endTimeLabel);
 		add(endTimeField);
 
 
@@ -152,6 +162,8 @@ public class AddShiftPanel extends JPanel{
 						clearFields();
 												
 					} catch (Exception exception) {
+						JOptionPane.showMessageDialog(AddShiftPanel.this, "Please Enter All Valid Values", 
+                                "ERROR", JOptionPane.ERROR_MESSAGE);
 						clearFields();
 					}
 				}

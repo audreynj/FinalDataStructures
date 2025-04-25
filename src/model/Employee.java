@@ -85,6 +85,11 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", wantedHours=" + wantedHours + ", remainingWantedHours=" + remainingWantedHours
+				+ ", name=" + name + ", hoursAvailable=" + hoursAvailable + "]";
+	}
+	
+	public String calendarText() {
+		return "Employee [id=" + id + ", wantedHours=" + wantedHours + ", remainingWantedHours=" + remainingWantedHours
 				+ ", name=" + name + ", hoursAvailable=" + hoursAvailable + ", shiftsTaken=" + shiftsTaken + "]";
 	}
 	

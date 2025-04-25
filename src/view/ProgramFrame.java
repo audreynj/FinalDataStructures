@@ -109,7 +109,7 @@ public class ProgramFrame extends JFrame{
 	private void setUpFrame() {
 		this.setTitle("Assign Shifts with Calendar");
 		this.setVisible(true);
-		this.setPreferredSize(new Dimension(600,600));
+		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
