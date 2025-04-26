@@ -25,23 +25,26 @@ import model.Shift;
 
 public class ProgramFrame extends JFrame{
 
+	//Panels under view
 	private StartPanel startPanel;
 	private ViewAllEmployeesPanel viewAllEmployeesPanel;
 	private ViewAllRemainingShiftsPanel viewAllShiftsPanel;
 	private ViewCalendarPanel viewCalendarPanel;
 
+	//Panels under Add or Assign
 	private AddEmployeePanel addEmployeePanel;
 	private AddShiftPanel addShiftPanel;
 	private AssignShiftPanel assignShiftPanel;
 
-	
+	//This panel will have the others added onto it
 	private JPanel allPanels;
 	
-	
+	//For the Menu Bar
 	private JMenuBar menuBar;
 	private JMenu addOrAssignMenu;
 	private JMenu viewMenu;
 	
+	//
 	public ProgramFrame(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		
 		startPanel = new StartPanel(allEmployees, allShifts);
@@ -62,16 +65,14 @@ public class ProgramFrame extends JFrame{
 	}
 	
 	
-	
 	private void setUpMenu(){
+		//Create menu bar and menus
 		menuBar = new JMenuBar();
-		
 		addOrAssignMenu = new JMenu("Add or Assign");
 		viewMenu = new JMenu("Views");
 
-		menuBar.add(viewMenu);
-		menuBar.add(addOrAssignMenu);
 		
+		//Create menu items for each panel
 		JMenuItem start = new JMenuItem("Start");
 		JMenuItem viewAllEmployees = new JMenuItem("View All Employees");
 		JMenuItem viewAllShifts = new JMenuItem("View All Shifts");
@@ -81,20 +82,22 @@ public class ProgramFrame extends JFrame{
 		JMenuItem addShift = new JMenuItem("Add Shift");
 		JMenuItem assignShifts = new JMenuItem("Assign Shifts");
 
-
+		//Add all to the frame
+		menuBar.add(viewMenu);
+		menuBar.add(addOrAssignMenu);
+		
 		viewMenu.add(start);
 		viewMenu.add(viewAllEmployees);
 		viewMenu.add(viewAllShifts);
 		viewMenu.add(viewCalendar);
-
-
+		
 		addOrAssignMenu.add(addEmployee);
 		addOrAssignMenu.add(addShift);
 		addOrAssignMenu.add(assignShifts);
 
 		
 		
-		
+		//Action listeners to change the screen
 		start.addActionListener(select->changeScreen("1"));
 		viewAllEmployees.addActionListener(select->changeScreen("2"));
 		viewAllShifts.addActionListener(select->changeScreen("3"));
@@ -105,8 +108,8 @@ public class ProgramFrame extends JFrame{
 		assignShifts.addActionListener(select->changeScreen("7"));
 	}
 	
-	
 	private void setUpFrame() {
+		//All properties of the frame
 		this.setTitle("Assign Shifts with Calendar");
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(800,600));
@@ -114,23 +117,25 @@ public class ProgramFrame extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		//Adding View panels
 		allPanels.add(startPanel, "1");
 		allPanels.add(viewAllEmployeesPanel, "2");
 		allPanels.add(viewAllShiftsPanel, "3");
 		allPanels.add(viewCalendarPanel, "4");
 		
-		
+		//Adding Add or Assign panels
 		allPanels.add(addEmployeePanel, "5");
 		allPanels.add(addShiftPanel, "6");
 		allPanels.add(assignShiftPanel, "7");
 		
+		//Add the panels and menubar to the frame
 		this.add(allPanels);
 		this.setJMenuBar(menuBar);
 		
 		this.pack();
 	}
 	
-	
+	//Will will change the view when somthing on the menu bar is selcted
 	private void changeScreen(String screen) {
 		((CardLayout)allPanels.getLayout()).show(allPanels, screen);
 	}

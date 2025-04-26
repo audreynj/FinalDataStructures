@@ -22,21 +22,19 @@ import model.Shift;
 
 public class ViewCalendarPanel extends JPanel{
 
-	
-	//Display list with shifts per day with employee 
-	
-	//Will change this button
+	//Create allEmployees and allShifts
 	private JButton updateCalendarButton = new JButton("Update Calendar");
-	
-	//May change size
 	private JTextArea calendarArea = new JTextArea(10, 70);
 	
+	//TextArea to display calendar text
 	private String calendarAreaText = "";
 
-	
+	//Create allEmployees and allShifts
+
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
+	//Getter and Setters
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -52,6 +50,7 @@ public class ViewCalendarPanel extends JPanel{
 	
 
 	public ViewCalendarPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 				
@@ -81,8 +80,6 @@ public class ViewCalendarPanel extends JPanel{
 		
 		// Adds the buttons to the panel
 		add(updateCalendarButton);
-
-		
 	
 	}
 
@@ -90,7 +87,7 @@ public class ViewCalendarPanel extends JPanel{
 		
 	
 	class ButtonListener implements ActionListener {
-
+		//ButtonListener will update the calendar if the button is pressed
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == updateCalendarButton) {

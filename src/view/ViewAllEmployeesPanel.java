@@ -22,18 +22,16 @@ import model.Shift;
 
 public class ViewAllEmployeesPanel extends JPanel{
 
-	//Will change this button
+	//Components of panel
 	private JButton updateViewButton = new JButton("Update Employees");
-
-	//May change size
 	private JTextArea viewEmployeesArea = new JTextArea(10, 70);
+	private String viewEmployeesAreaText = "";
 
-	
+	//
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
 	
-	private String viewEmployeesAreaText = "";
 
 	
 	public ArrayList<Employee> getAllEmployees() {

@@ -22,11 +22,14 @@ import model.Shift;
 
 public class StartPanel extends JPanel{
 
+	//Create allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
+	//TextArea to display start message
 	private JTextArea startPanelArea = new JTextArea(10, 70);
 	
+	//Getter and Setter
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -41,19 +44,17 @@ public class StartPanel extends JPanel{
 	}
 
 	
-	//Needs buttons for them all
 	public StartPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
-
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
-		
-		startPanelArea.setText("This is the first page");	
-
+		//Text and properties for startPanelArea
+		startPanelArea.setText("This program is used to determine the best employee for a shift. \nThe inputted hours should be in military time, and a zero means you can not work at that time. ");	
 		startPanelArea.setEnabled(false);
 		startPanelArea.setDisabledTextColor(Color.BLACK);
 		
-		
+		//Add startPanelArea to panel
 		add(startPanelArea);
 		
 	}

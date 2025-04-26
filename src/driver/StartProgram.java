@@ -24,7 +24,7 @@ public class StartProgram {
 	
 	public static void main(String[] args) {
 	
-	//Setting up Priority Queue and ArrayList
+	//Setting up Priority Queue for shifts and ArrayList for employees
 	Shift shift1 = new Shift(1, "Monday", 1, 5, "High");
 	Shift shift2 = new Shift(2, "Tuesday", 1, 4, "Important");
 	Shift shift3 = new Shift(3, "Tuesday", 6, 8, "Low");
@@ -51,7 +51,7 @@ public class StartProgram {
 	
 	
 	
-	
+	//Run ProgramFrame for the GUI
 	new ProgramFrame(allEmployees, allAvailableAShifts);
 	
 	
