@@ -3,15 +3,13 @@
 * @version 1.0
 * @since 1.0
 */
-
 package view;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,14 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import model.AssignShiftToEmployee;
 import model.Employee;
 import model.Shift;
-import view.ViewAllEmployeesPanel.ButtonListener;
 
 public class AssignShiftPanel extends JPanel{
-
 	private JButton assignButton = new JButton("Assign");
 	private JButton clearButton = new JButton("Clear");
 	
@@ -34,7 +29,6 @@ public class AssignShiftPanel extends JPanel{
 	
 	private String viewEligibleEmployeesAreaText = "";
 	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
-
 	
 	private JTextField employeeIdField;
 	
@@ -57,7 +51,6 @@ public class AssignShiftPanel extends JPanel{
 		this.allShifts = allShifts;
 	}
 	
-
 	public AssignShiftPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
@@ -65,40 +58,56 @@ public class AssignShiftPanel extends JPanel{
 		// Creates a ButtonListener
 		ButtonListener bl = new ButtonListener();
 		clearButton.addActionListener(bl);
-
 		
 		// Adds the ButtonListener to both JButtons
 		assignButton.addActionListener(bl);
-
 		//Use JScrollPane for JTextArea and setEditable(false)
 		for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
 			viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
 		}
 		
 		viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);	
-
 		viewEligibleEmployeesArea.setEnabled(false);
 		viewEligibleEmployeesArea.setDisabledTextColor(Color.BLACK);
 		
 		employeeIdField = new JTextField(16);
-
-
 		
 		JScrollPane scroll = new JScrollPane(viewEligibleEmployeesArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scroll);
 		
 		
-		// Adds the buttons to the panel
-		add(assignButton);
-		add(clearButton);
-		add(assignLabel);
-		add(employeeIdField);
+		// Adds the components to the panel
+		GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        
+        
 
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        				.addComponent(scroll))
+        		.addGroup(layout.createSequentialGroup()
+        				.addComponent(assignLabel)
+            	        .addComponent(employeeIdField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+        				.addComponent(assignButton)
+        				.addComponent(clearButton)));
+        
+        layout.setVerticalGroup(layout.createSequentialGroup()
+        		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(scroll))
+        		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(assignLabel)
+        				.addComponent(employeeIdField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(assignButton)
+        				.addComponent(clearButton)));
+		
 
 	}
 		
 		class ButtonListener implements ActionListener {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == assignButton) {
@@ -113,8 +122,8 @@ public class AssignShiftPanel extends JPanel{
 						clearFields();
 												
 					} catch (Exception exception) {
-						JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID", 
-                                "ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID",
+                               "ERROR", JOptionPane.ERROR_MESSAGE);
 						clearFields();
 					}
 				}
@@ -123,7 +132,6 @@ public class AssignShiftPanel extends JPanel{
 					clearFields();
 				}
 			}
-
 	
 	}
 		
@@ -142,4 +150,3 @@ public class AssignShiftPanel extends JPanel{
 			}
 	
 }
-

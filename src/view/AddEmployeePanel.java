@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,9 +40,9 @@ public class AddEmployeePanel extends JPanel{
 	private JLabel wantedHoursLabel = new JLabel("Wanted Hours: ");
 	private JLabel nameLabel = new JLabel("Name: ");
 	
-	private JTextField idField;
-	private JTextField wantedHoursField;
-	private JTextField nameField;
+	private JTextField idField = new JTextField(4);
+	private JTextField wantedHoursField = new JTextField(4);
+	private JTextField nameField = new JTextField(4);
 	
 	private JLabel mStartLabel = new JLabel("Monday Start Time: ");
 	private JLabel mEndLabel = new JLabel("Monday End Time: ");
@@ -56,18 +57,18 @@ public class AddEmployeePanel extends JPanel{
 	private JLabel sStartLabel = new JLabel("Saturday Start Time: ");
 	private JLabel sEndLabel = new JLabel("Saturday End Time");
 	
-	private JTextField mStartField;
-	private JTextField mEndField;
-	private JTextField tuStartField;
-	private JTextField tuEndField;
-	private JTextField wStartField;
-	private JTextField wEndField;
-	private JTextField thStartField;
-	private JTextField thEndField;
-	private JTextField fStartField;
-	private JTextField fEndField;
-	private JTextField sStartField;
-	private JTextField sEndField;
+	private JTextField mStartField = new JTextField(4);
+	private JTextField mEndField = new JTextField(4);
+	private JTextField tuStartField = new JTextField(4);
+	private JTextField tuEndField = new JTextField(4);
+	private JTextField wStartField = new JTextField(4);
+	private JTextField wEndField = new JTextField(4);
+	private JTextField thStartField = new JTextField(4);
+	private JTextField thEndField = new JTextField(4);
+	private JTextField fStartField = new JTextField(4);
+	private JTextField fEndField = new JTextField(4);
+	private JTextField sStartField = new JTextField(4);
+	private JTextField sEndField = new JTextField(4);
 
 	
 	
@@ -99,76 +100,114 @@ public class AddEmployeePanel extends JPanel{
 		// Adds the ButtonListener to both JButtons
 		addEmployeeButton.addActionListener(bl);
 		clearButton.addActionListener(bl);
-
-
-		//Textfields and Labels
-		idField = new JTextField(4);
-		wantedHoursField = new JTextField(4);
-		nameField = new JTextField(16);
-		
-		mStartField = new JTextField(4);
-		mEndField = new JTextField(4);
-		tuStartField = new JTextField(4);
-		tuEndField = new JTextField(4);
-		wStartField = new JTextField(4);
-		wEndField = new JTextField(4);
-		thStartField = new JTextField(4);
-		thEndField = new JTextField(4);
-		fStartField = new JTextField(4);
-		fEndField = new JTextField(4);
-		sStartField = new JTextField(4);
-		sEndField = new JTextField(4);
-		
 				
-		add(idLabel);
-		add(idField);
-		add(wantedHoursLabel);
-		add(wantedHoursField);
-		add(nameLabel);
-		add(nameField);
-		
-		add(mStartLabel);
-		add(mStartField);
-		
-		add(mEndLabel);
-		add(mEndField);
-		
-		add(tuStartLabel);
-		add(tuStartField);
-		
-		add(tuEndLabel);
-		add(tuEndField);
+		// Adds the components to the panel
+		GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        
 
-		add(wStartLabel);
-		add(wStartField);
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        				.addComponent(idLabel)
+						.addComponent(idField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(wantedHoursLabel)
+						.addComponent(wantedHoursField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(nameLabel)
+						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(mStartLabel)
+						.addComponent(mStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(mEndLabel)
+						.addComponent(mEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(tuStartLabel)
+						.addComponent(tuStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(tuEndLabel)
+						.addComponent(tuEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(wStartLabel)
+						.addComponent(wStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(wEndLabel)
+						.addComponent(wEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(thStartLabel)
+						.addComponent(thStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(thEndLabel)
+						.addComponent(thEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(fStartLabel)
+						.addComponent(fStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(fEndLabel)
+						.addComponent(fEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(sStartLabel)
+						.addComponent(sStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(sEndLabel)
+						.addComponent(sEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(addEmployeeButton)
+						.addComponent(clearButton)));
 
-		add(wEndLabel);
-		add(wEndField);
-
-		add(thStartLabel);
-		add(thStartField);
-
-		add(thEndLabel);
-		add(thEndField);
-
-		add(fStartLabel);
-		add(fStartField);
-
-		add(fEndLabel);
-		add(fEndField);
-
-		add(sStartLabel);
-		add(sStartField);
-
-		add(sEndLabel);
-		add(sEndField);
-
-		
-			
-		// Adds the buttons to the panel
-		add(addEmployeeButton);
-		add(clearButton);
-
+        
+        layout.setVerticalGroup(layout.createSequentialGroup()
+        		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(idLabel)
+        				.addComponent(idField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(wantedHoursLabel)
+        				.addComponent(wantedHoursField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(nameLabel)
+        				.addComponent(nameField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(mStartLabel)
+						.addComponent(mStartField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(mEndLabel)
+						.addComponent(mEndField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(tuStartLabel)
+						.addComponent(tuStartField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(tuEndLabel)
+						.addComponent(tuEndField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(wStartLabel)
+						.addComponent(wStartField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(wEndLabel)
+						.addComponent(wEndField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(thStartLabel)
+						.addComponent(thStartField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(thEndLabel)
+						.addComponent(thEndField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(fStartLabel)
+						.addComponent(fStartField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(fEndLabel)
+						.addComponent(fEndField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(sStartLabel)
+						.addComponent(sStartField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(sEndLabel)
+						.addComponent(sEndField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(addEmployeeButton)
+						.addComponent(clearButton)));
 
 	}
 		

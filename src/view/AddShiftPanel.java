@@ -6,12 +6,14 @@
 
 package view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -42,17 +44,16 @@ public class AddShiftPanel extends JPanel{
 
 	
 	
-	private JTextField dayField;
-	private JTextField startTimeField;
-	private JTextField endTimeField;
-
+	private JTextField dayField = new JTextField(8);
+	private JTextField startTimeField = new JTextField(8);
+	private JTextField endTimeField = new JTextField(8);
 	
 	
-	private ButtonGroup priorityGroup;
+	private ButtonGroup priorityGroup = new ButtonGroup();
 	
-	private JRadioButton priorityImportant;
-	private JRadioButton priorityHigh;
-	private JRadioButton priorityLow;
+	private JRadioButton priorityImportant = new JRadioButton();
+	private JRadioButton priorityHigh = new JRadioButton();
+	private JRadioButton priorityLow = new JRadioButton();
 
 	
 	private ArrayList<Employee> allEmployees;
@@ -87,47 +88,59 @@ public class AddShiftPanel extends JPanel{
 		clearButton.addActionListener(bl);
 
 		
-		//Textfields
-		dayField = new JTextField(16);
-		startTimeField = new JTextField(4);
-		endTimeField = new JTextField(4);
-		
-		
-		add(dayLabel);
-		add(dayField);
-		add(startTimeLabel);
-		add(startTimeField);
-		add(endTimeLabel);
-		add(endTimeField);
-
-
-		
 		//Radio button
-		priorityGroup = new ButtonGroup();
-		
-		priorityImportant = new JRadioButton();
-		priorityHigh = new JRadioButton();
-		priorityLow = new JRadioButton();
-
 		priorityImportant.setText("Important"); 
 		priorityHigh.setText("High"); 
 		priorityLow.setText("Low"); 		
 		
-		
-		this.add(priorityImportant);
-		this.add(priorityHigh);
-		this.add(priorityLow);
-		
 		priorityGroup.add(priorityImportant); 
 		priorityGroup.add(priorityHigh);
 		priorityGroup.add(priorityLow);
+	
 		
-		
-		
-		// Adds the buttons to the panel
-		add(addShiftButton);
-		add(clearButton);
+		// Adds the components to the panel
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        
 
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        				.addComponent(dayLabel)
+            	        .addComponent(dayField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+        				.addComponent(startTimeLabel)
+        				.addComponent(startTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+        				.addComponent(endTimeLabel)
+        				.addComponent(endTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+				.addGroup(layout.createSequentialGroup()
+        				.addComponent(priorityImportant)
+        				.addComponent(priorityHigh)
+        				.addComponent(priorityLow))
+				.addGroup(layout.createSequentialGroup()
+        				.addComponent(addShiftButton)
+        				.addComponent(clearButton)));
+        
+        layout.setVerticalGroup(layout.createSequentialGroup()
+        		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(dayLabel)
+        				.addComponent(dayField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(startTimeLabel)
+        				.addComponent(startTimeField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(endTimeLabel)
+        				.addComponent(endTimeField))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(priorityImportant)
+        				.addComponent(priorityHigh)
+        				.addComponent(priorityLow))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        				.addComponent(addShiftButton)
+        				.addComponent(clearButton)));
+        
 
 	}
 		
