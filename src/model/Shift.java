@@ -6,6 +6,8 @@
 
 package model;
 
+import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Shift implements Comparable<Shift>{
 	
@@ -26,14 +28,26 @@ public class Shift implements Comparable<Shift>{
 	}
 	
 	
-	public Shift(String day, int startTime, int endTime, String priority) {
-		//HAVE THIS FIGURE OUT NEXT NUMBER FOR ID USING ALL SHIFTS
-		//this.id = 
+	public Shift(String day, int startTime, int endTime, String priority, PriorityQueue<Shift> allShifts) {
+		this.id = determineId(allShifts);	
 		this.day = day;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.priority = priority;
 		this.shiftLength = endTime - startTime;
+	}
+	
+	public int determineId(PriorityQueue<Shift> allShifts) {
+		
+		int lastUsedId = 0;
+		
+		for(Shift selectedShift:allShifts) {
+			if(selectedShift.getId() > lastUsedId) {
+				lastUsedId = selectedShift.getId();
+			}
+		}
+		
+		return lastUsedId+1;
 	}
 	
 	

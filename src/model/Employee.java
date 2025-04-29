@@ -15,6 +15,8 @@ public class Employee {
 	private String name;
 	private ArrayList<Integer> hoursAvailable;
 	private ArrayList<Shift> shiftsTaken;
+	
+	private int numOfDaysCanWork;
 
 	
 	//When creating a new employee, they will automatically start out with the same wanted and remaining hours 
@@ -25,9 +27,18 @@ public class Employee {
 		this.name = name;
 		this.hoursAvailable = hoursAvailable;
 		this.shiftsTaken = new ArrayList<Shift>();
+		
+		int numOfDaysCanWorkCount = 0;
+		for (Integer selectedSlot : hoursAvailable) {
+		    if (!selectedSlot.equals(0)) {
+		    	numOfDaysCanWorkCount++;
+		    }
+		}
+		
+		this.numOfDaysCanWork = numOfDaysCanWorkCount/2;
 	}
 	
-
+	//Getter and Setter methods
 	public int getId() {
 		return id;
 	}
@@ -73,8 +84,18 @@ public class Employee {
 
 	public void setShiftsTaken(ArrayList<Shift> shiftsTaken) {
 		this.shiftsTaken = shiftsTaken;
-	}
+	}	
 	
+	public int getNumOfDaysCanWork() {
+		return numOfDaysCanWork;
+	}
+
+
+	public void setNumOfDaysCanWork(int numOfDaysCanWork) {
+		this.numOfDaysCanWork = numOfDaysCanWork;
+	}
+
+
 	public void addShift(Shift enteredShift) {
 		this.shiftsTaken.add(enteredShift);
 		

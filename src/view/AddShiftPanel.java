@@ -168,7 +168,7 @@ public class AddShiftPanel extends JPanel{
 						//NEED TO CHECK IF THE DAY IS A DAY OF THE WEEK
 						
 						Shift newShift = new Shift(dayField.getText(), Integer.parseInt(startTimeField.getText()),
-								Integer.parseInt(endTimeField.getText()),  priority);
+								Integer.parseInt(endTimeField.getText()),  priority, allShifts);
 
 						allShifts.add(newShift);
 
