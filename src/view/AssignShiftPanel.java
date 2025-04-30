@@ -32,12 +32,12 @@ public class AssignShiftPanel extends JPanel{
 	
 	private JTextField employeeIdField;
 	
-	//May change size
 	private JTextArea viewEligibleEmployeesArea = new JTextArea(10, 70);
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
+	//Getter and Setters
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -82,7 +82,6 @@ public class AssignShiftPanel extends JPanel{
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
         
-        
 
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
@@ -103,50 +102,72 @@ public class AssignShiftPanel extends JPanel{
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(assignButton)
         				.addComponent(clearButton)));
-		
-
 	}
 		
-		class ButtonListener implements ActionListener {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == assignButton) {
-					try {
-						
-						for(Employee selectedEmployee: allEmployees) {
-							if(selectedEmployee.getId() == Integer.parseInt(employeeIdField.getText())){
+	class ButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == assignButton) {
+				try {
+					
+					for(Employee selectedEmployee: allEmployees) {
+						if(selectedEmployee!=null) 
+						{
+						if(selectedEmployee.getId() == Integer.parseInt(employeeIdField.getText()))
+						{
+							if(checkEmployeeAvailabilityList(selectedEmployee).equals("")) 
+							{
 								assigner.assignShift(selectedEmployee, allShifts.peek(), allShifts);
 							}
 						}
-						
-						clearFields();
-												
-					} catch (Exception exception) {
-						JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID",
-                               "ERROR", JOptionPane.ERROR_MESSAGE);
-						clearFields();
 					}
 				}
-				// If the clearButton was clicked it will call the clearFields method
-				else{
+					
+					
+					clearFields();
+											
+				} catch (Exception exception) {
+					JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID",
+                           "ERROR", JOptionPane.ERROR_MESSAGE);
 					clearFields();
 				}
 			}
+			// If the clearButton was clicked it will call the clearFields method
+			else{
+				clearFields();
+			}
+		}
+	}
 	
+	public String checkEmployeeAvailabilityList(Employee selectedEmployee) {
+		
+		//if( )
+		
+		return "";
 	}
 		
 		
-		public void clearFields() {
-			employeeIdField.setText("");
-			viewEligibleEmployeesAreaText = ("");
+	public void clearFields() 
+	{
+		employeeIdField.setText("");
+		viewEligibleEmployeesAreaText = ("");
+		
+		//viewEligibleEmployeesArea.setText();
+		
+		for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
 			
-			//viewEligibleEmployeesArea.setText();
-			
-			for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
-				viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
+			if(allShifts.peek() == null) {
+				JOptionPane.showMessageDialog(AssignShiftPanel.this, "This works now",
+                "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				
+			}{
+			viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
 			}
 			
-			viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);
-			}
-	
+		}
+		
+		viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);
+	}	
 }

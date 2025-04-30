@@ -23,22 +23,15 @@ import view.AssignShiftPanel.ButtonListener;
 
 public class ViewAllRemainingShiftsPanel extends JPanel{
 
-	//Show list of shifts that have not been taken yet
-	//Back buttons
-	
-	//Will change this button
 	private JButton updateViewButton = new JButton("Update Shifts");
-
-	
-	//May change size
 	private JTextArea viewRemainingShiftsArea = new JTextArea(10, 70);
 
-	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
 	private String viewRemainingShiftsAreaText = "";
 	
+	//Getter and Setters
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -70,7 +63,6 @@ public class ViewAllRemainingShiftsPanel extends JPanel{
 		}
 		
 		viewRemainingShiftsArea.setText(viewRemainingShiftsAreaText);	
-
 		viewRemainingShiftsArea.setEnabled(false);
 		viewRemainingShiftsArea.setDisabledTextColor(Color.BLACK);
 		
@@ -85,20 +77,20 @@ public class ViewAllRemainingShiftsPanel extends JPanel{
 	}
 		
 	//Will add removeShift() later, might have button in this file
-		class ButtonListener implements ActionListener {
+	class ButtonListener implements ActionListener {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == updateViewButton) {
-					viewRemainingShiftsAreaText = "";
-					for(Shift selectedShift: allShifts) {
-						viewRemainingShiftsAreaText += selectedShift.toString() + "\n";
-					}
-					
-					viewRemainingShiftsArea.setText(viewRemainingShiftsAreaText);	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == updateViewButton) 
+			{
+				viewRemainingShiftsAreaText = "";
+				for(Shift selectedShift: allShifts) 
+				{
+					viewRemainingShiftsAreaText += selectedShift.toString() + "\n";
+				}
+				
+				viewRemainingShiftsArea.setText(viewRemainingShiftsAreaText);	
 			}
-
 		}
 	}
 }
-

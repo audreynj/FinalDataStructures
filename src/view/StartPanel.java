@@ -55,9 +55,6 @@ public class StartPanel extends JPanel{
 		startPanelArea.setDisabledTextColor(Color.BLACK);
 		
 		//Add startPanelArea to panel
-		add(startPanelArea);
-		
+		add(startPanelArea);	
 	}
-
 }
-

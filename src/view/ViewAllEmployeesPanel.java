@@ -30,8 +30,6 @@ public class ViewAllEmployeesPanel extends JPanel{
 	//
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
-	
-	
 
 	
 	public ArrayList<Employee> getAllEmployees() {
@@ -110,16 +108,15 @@ public class ViewAllEmployeesPanel extends JPanel{
 	}
 
 		//Will add removeEmployee() later, might have button in this file
-		class ButtonListener implements ActionListener {
+	class ButtonListener implements ActionListener 
+	{
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == updateViewButton) {
-					SetTextArea();	
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if (e.getSource() == updateViewButton) {
+				SetTextArea();	
 			}
-
 		}
-	
 	}
 }
-

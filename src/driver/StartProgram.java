@@ -56,10 +56,5 @@ public class StartProgram {
 	//Run ProgramFrame for the GUI
 	new ProgramFrame(allEmployees, allAvailableAShifts);
 	
-	
 	}
-	
-
-
 }
-

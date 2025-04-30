@@ -148,10 +148,5 @@ public class AssignShiftToEmployee {
 		selectedEmployee.addShift(selectedShift);
 		
 		allAvailableAShifts.remove(selectedShift);
-	}
-			
-		
+	}		
 }
-
-
-

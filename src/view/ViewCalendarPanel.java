@@ -30,7 +30,6 @@ public class ViewCalendarPanel extends JPanel{
 	private String calendarAreaText = "";
 
 	//Create allEmployees and allShifts
-
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
@@ -82,25 +81,26 @@ public class ViewCalendarPanel extends JPanel{
 		add(updateCalendarButton);
 	
 	}
-
 	
-		
 	
-	class ButtonListener implements ActionListener {
+	class ButtonListener implements ActionListener 
+	{
 		//ButtonListener will update the calendar if the button is pressed
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == updateCalendarButton) {
+		public void actionPerformed(ActionEvent e) 
+		{
+			if (e.getSource() == updateCalendarButton) 
+			{
 				calendarAreaText = "";
-				for(Employee selectedEmployee: allEmployees) {
+				for(Employee selectedEmployee: allEmployees) 
+				{
 					calendarAreaText += selectedEmployee.calendarText() + "\n";
 				}
 				
 				calendarArea.setText(calendarAreaText);	
-		}
+			}
 
 		}
 	
 	}
 }
-

@@ -140,4 +140,3 @@ public class ProgramFrame extends JFrame{
 		((CardLayout)allPanels.getLayout()).show(allPanels, screen);
 	}
 }
-

@@ -113,10 +113,4 @@ public class Employee {
 		return "Employee [id=" + id + ", wantedHours=" + wantedHours + ", remainingWantedHours=" + remainingWantedHours
 				+ ", name=" + name + ", hoursAvailable=" + hoursAvailable + ", shiftsTaken=" + shiftsTaken + "]";
 	}
-	
-	
-	
-	
-	
 }
-

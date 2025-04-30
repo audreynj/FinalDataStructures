@@ -210,7 +210,7 @@ public class AddEmployeePanel extends JPanel{
 						.addComponent(clearButton)));
 
 	}
-		
+	
 		class ButtonListener implements ActionListener {
 
 			@Override
@@ -252,8 +252,7 @@ public class AddEmployeePanel extends JPanel{
 			clearFields();
 		}
 	}
-}
-		
+}		
 		public void clearFields() {
 			idField.setText("");
 			wantedHoursField.setText("");
@@ -273,6 +272,3 @@ public class AddEmployeePanel extends JPanel{
 			sEndField.setText("");
 	}
 }
-	
-
-

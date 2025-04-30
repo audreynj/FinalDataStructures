@@ -224,15 +224,11 @@ class AssignShiftToEmployeeTests {
 		expected.add(employee3);
 		expected.add(employee4);
 		expected.add(employee5);
-
-				
+		
 		//ASSERT
 		assertEquals(expected, actual);
 	}
-	
-	
-	
-	
+
 	
 	@Test
 	void testSortByTimeOneShiftTaken() {
@@ -275,10 +271,8 @@ class AssignShiftToEmployeeTests {
 		expected.add(employee3);
 		expected.add(employee5);
 		expected.add(employee4);
-
 				
 		//ASSERT
 		assertEquals(expected, actual);
 	}
 }
-

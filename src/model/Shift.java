@@ -114,9 +114,5 @@ public class Shift implements Comparable<Shift>{
 	public String toString() {
 		return "Shift [id=" + id + ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", priority="
 				+ priority + ", shiftLength=" + shiftLength + "]";
-	}
-	
-	
-	
+	}	
 }
-

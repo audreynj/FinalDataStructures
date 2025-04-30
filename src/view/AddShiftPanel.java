@@ -27,39 +27,37 @@ import view.AssignShiftPanel.ButtonListener;
 
 public class AddShiftPanel extends JPanel{
 
-
-	//Spots to day, start hour, end hour, etc
-	
-	//Confirm button
-	//Clear button
-	//Back button
-
-	//Will change this button
 	private JButton addShiftButton = new JButton("Add Shift");
 	private JButton clearButton = new JButton("Clear");
 
 	private JLabel dayLabel = new JLabel("Day: ");
 	private JLabel startTimeLabel = new JLabel("Start Time: ");
 	private JLabel endTimeLabel = new JLabel("End Time: ");
+	private JLabel priorityLabel = new JLabel("Priority: ");
+
+
+	private ButtonGroup dayGroup = new ButtonGroup();
+	
+	private JRadioButton dayM = new JRadioButton("Monday");
+	private JRadioButton dayTu = new JRadioButton("Tuesday");
+	private JRadioButton dayW = new JRadioButton("Wednesday");
+	private JRadioButton dayTh = new JRadioButton("Thursday");
+	private JRadioButton dayF = new JRadioButton("Friday");
+	private JRadioButton dayS = new JRadioButton("Saturday");
 
 	
-	
-	private JTextField dayField = new JTextField(8);
 	private JTextField startTimeField = new JTextField(8);
 	private JTextField endTimeField = new JTextField(8);
 	
-	
 	private ButtonGroup priorityGroup = new ButtonGroup();
 	
-	private JRadioButton priorityImportant = new JRadioButton();
-	private JRadioButton priorityHigh = new JRadioButton();
-	private JRadioButton priorityLow = new JRadioButton();
-
+	private JRadioButton priorityImportant = new JRadioButton("Important");
+	private JRadioButton priorityHigh = new JRadioButton("High");
+	private JRadioButton priorityLow = new JRadioButton("Low");
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
-	
-	
+
 	
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
@@ -75,7 +73,6 @@ public class AddShiftPanel extends JPanel{
 	}
 	
 	
-	
 	public AddShiftPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
@@ -88,15 +85,17 @@ public class AddShiftPanel extends JPanel{
 		clearButton.addActionListener(bl);
 
 		
-		//Radio button
-		priorityImportant.setText("Important"); 
-		priorityHigh.setText("High"); 
-		priorityLow.setText("Low"); 		
-		
+		//Radio buttons
 		priorityGroup.add(priorityImportant); 
 		priorityGroup.add(priorityHigh);
 		priorityGroup.add(priorityLow);
 	
+		dayGroup.add(dayM); 
+		dayGroup.add(dayTu);
+		dayGroup.add(dayW);
+		dayGroup.add(dayTh); 
+		dayGroup.add(dayF);
+		dayGroup.add(dayS);
 		
 		// Adds the components to the panel
         GroupLayout layout = new GroupLayout(this);
@@ -108,14 +107,20 @@ public class AddShiftPanel extends JPanel{
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
         				.addComponent(dayLabel)
-            	        .addComponent(dayField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-				.addGroup(layout.createSequentialGroup()
+        				.addComponent(dayM)
+        				.addComponent(dayTu)
+        				.addComponent(dayW)
+        				.addComponent(dayTh)
+        				.addComponent(dayF)
+        				.addComponent(dayS))				
+        		.addGroup(layout.createSequentialGroup()
         				.addComponent(startTimeLabel)
         				.addComponent(startTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
         				.addComponent(endTimeLabel)
         				.addComponent(endTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
+						.addComponent(priorityLabel)
         				.addComponent(priorityImportant)
         				.addComponent(priorityHigh)
         				.addComponent(priorityLow))
@@ -126,7 +131,12 @@ public class AddShiftPanel extends JPanel{
         layout.setVerticalGroup(layout.createSequentialGroup()
         		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(dayLabel)
-        				.addComponent(dayField))
+        				.addComponent(dayM)
+        				.addComponent(dayTu)
+        				.addComponent(dayW)
+        				.addComponent(dayTh)
+        				.addComponent(dayF)
+        				.addComponent(dayS))			
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(startTimeLabel)
         				.addComponent(startTimeField))
@@ -134,16 +144,16 @@ public class AddShiftPanel extends JPanel{
         				.addComponent(endTimeLabel)
         				.addComponent(endTimeField))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-        				.addComponent(priorityImportant)
+						.addComponent(priorityLabel)
+						.addComponent(priorityImportant)
         				.addComponent(priorityHigh)
         				.addComponent(priorityLow))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(addShiftButton)
         				.addComponent(clearButton)));
-        
-
 	}
 		
+	
 		class ButtonListener implements ActionListener {
 
 			@Override
@@ -156,18 +166,32 @@ public class AddShiftPanel extends JPanel{
 						}
 						else if(priorityHigh.isSelected()) {
 							priority = priorityHigh.getText();
-
-						}
-						else if(priorityLow.isSelected()) {
-							priority = priorityLow.getText();
-
 						}
 						else {
-							//CREATE A VALIDATION HERE
+							priority = priorityLow.getText();
 						}
-						//NEED TO CHECK IF THE DAY IS A DAY OF THE WEEK
 						
-						Shift newShift = new Shift(dayField.getText(), Integer.parseInt(startTimeField.getText()),
+						String day = "";
+						if(dayM.isSelected()) {
+							day = dayM.getText();
+						}
+						else if(dayTu.isSelected()) {
+							day = dayTu.getText();
+						}
+						else if(dayW.isSelected()) {
+							day = dayW.getText();
+						}
+						else if(dayTh.isSelected()) {
+							day = dayTh.getText();
+						}
+						else if(dayF.isSelected()) {
+							day = dayF.getText();
+						}
+						else {
+							day = dayS.getText();
+						}
+						
+						Shift newShift = new Shift(day, Integer.parseInt(startTimeField.getText()),
 								Integer.parseInt(endTimeField.getText()),  priority, allShifts);
 
 						allShifts.add(newShift);
@@ -184,17 +208,14 @@ public class AddShiftPanel extends JPanel{
 				if (e.getSource() == clearButton) {
 					clearFields();
 				}
-			}
-
-	
+			}	
 	}
 		
 		
 	public void clearFields() {
-		dayField.setText("");
 		startTimeField.setText("");
 		endTimeField.setText("");
 		priorityGroup.clearSelection();
+		dayGroup.clearSelection();
 		}
 }
-
