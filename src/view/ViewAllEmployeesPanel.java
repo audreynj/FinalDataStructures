@@ -27,11 +27,10 @@ public class ViewAllEmployeesPanel extends JPanel{
 	private JTextArea viewEmployeesArea = new JTextArea(10, 70);
 	private String viewEmployeesAreaText = "";
 
-	//
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 
-	
+	//Getter and Setter methods
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -46,10 +45,7 @@ public class ViewAllEmployeesPanel extends JPanel{
 	}
 	
 	
-	
-	//Show list of employees
-	//Back buttons
-	//Button and textbox to remove an employee
+
 	public ViewAllEmployeesPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);

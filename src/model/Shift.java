@@ -36,7 +36,11 @@ public class Shift implements Comparable<Shift>{
 		this.priority = priority;
 		this.shiftLength = endTime - startTime;
 	}
-	
+
+	public Shift() {
+	}
+
+
 	public int determineId(PriorityQueue<Shift> allShifts) {
 		
 		int lastUsedId = 0;

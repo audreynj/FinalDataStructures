@@ -24,6 +24,8 @@ import model.Shift;
 public class AssignShiftPanel extends JPanel{
 	private JButton assignButton = new JButton("Assign");
 	private JButton clearButton = new JButton("Clear");
+	private JButton updateViewButton = new JButton("Update Employees List");
+
 	
 	private JLabel assignLabel = new JLabel("Assign to Employee(Use ID): ");
 	
@@ -36,6 +38,8 @@ public class AssignShiftPanel extends JPanel{
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
+	
+	private Shift selectedShiftToDisplay = new Shift();
 	
 	//Getter and Setters
 	public ArrayList<Employee> getAllEmployees() {
@@ -57,16 +61,16 @@ public class AssignShiftPanel extends JPanel{
 		
 		// Creates a ButtonListener
 		ButtonListener bl = new ButtonListener();
+		
+		// Adds the ButtonListener to all JButtons
 		clearButton.addActionListener(bl);
-		
-		// Adds the ButtonListener to both JButtons
 		assignButton.addActionListener(bl);
-		//Use JScrollPane for JTextArea and setEditable(false)
-		for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
-			viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
-		}
+		updateViewButton.addActionListener(bl);
 		
-		viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);	
+		//Use JScrollPane for JTextArea and setEditable(false)
+		setviewEligibleEmployeesAreaText();
+		
+		
 		viewEligibleEmployeesArea.setEnabled(false);
 		viewEligibleEmployeesArea.setDisabledTextColor(Color.BLACK);
 		
@@ -91,7 +95,8 @@ public class AssignShiftPanel extends JPanel{
             	        .addComponent(employeeIdField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
         				.addComponent(assignButton)
-        				.addComponent(clearButton)));
+        				.addComponent(clearButton)
+        				.addComponent(updateViewButton)));
         
         layout.setVerticalGroup(layout.createSequentialGroup()
         		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -101,7 +106,8 @@ public class AssignShiftPanel extends JPanel{
         				.addComponent(employeeIdField))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(assignButton)
-        				.addComponent(clearButton)));
+        				.addComponent(clearButton)
+        				.addComponent(updateViewButton)));
 	}
 		
 	class ButtonListener implements ActionListener {
@@ -111,17 +117,12 @@ public class AssignShiftPanel extends JPanel{
 				try {
 					
 					for(Employee selectedEmployee: allEmployees) {
-						if(selectedEmployee!=null) 
-						{
+						
 						if(selectedEmployee.getId() == Integer.parseInt(employeeIdField.getText()))
 						{
-							if(checkEmployeeAvailabilityList(selectedEmployee).equals("")) 
-							{
-								assigner.assignShift(selectedEmployee, allShifts.peek(), allShifts);
-							}
+							assigner.assignShift(selectedEmployee, selectedShiftToDisplay, allShifts);
 						}
 					}
-				}
 					
 					
 					clearFields();
@@ -129,8 +130,10 @@ public class AssignShiftPanel extends JPanel{
 				} catch (Exception exception) {
 					JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID",
                            "ERROR", JOptionPane.ERROR_MESSAGE);
-					clearFields();
 				}
+			}
+			else if (e.getSource() == updateViewButton) {
+				setviewEligibleEmployeesAreaText();	
 			}
 			// If the clearButton was clicked it will call the clearFields method
 			else{
@@ -139,35 +142,66 @@ public class AssignShiftPanel extends JPanel{
 		}
 	}
 	
-	public String checkEmployeeAvailabilityList(Employee selectedEmployee) {
+	public void checkEmployeesForShift() {
 		
-		//if( )
+		PriorityQueue<Shift> shifts = new PriorityQueue<>(allShifts);
+		int shiftsSkipped = 0;
 		
-		return "";
+		selectedShiftToDisplay = null;
+		for(int i = 0;i < allShifts.size(); i++) {
+			if (!assigner.determineEligibleEmployeesList(allEmployees, shifts.peek()).isEmpty()) {
+				
+				if(shiftsSkipped!=0) {
+					JOptionPane.showMessageDialog(AssignShiftPanel.this, "IMPORTANT: Had to skip " + shiftsSkipped + " shifts because they could not be filled",
+	                           "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				selectedShiftToDisplay = shifts.peek();
+				break;
+			}
+			else {
+				shiftsSkipped++;
+				shifts.poll();
+			}
+		}
+		
+		if(selectedShiftToDisplay == null) {
+		JOptionPane.showMessageDialog(AssignShiftPanel.this, "IMPORTANT: all of " + shiftsSkipped + " shifts can not be filled",
+                "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 		
 		
 	public void clearFields() 
 	{
 		employeeIdField.setText("");
-		viewEligibleEmployeesAreaText = ("");
 		
 		//viewEligibleEmployeesArea.setText();
-		
-		for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, allShifts.peek())) {
-			
-			if(allShifts.peek() == null) {
-				JOptionPane.showMessageDialog(AssignShiftPanel.this, "This works now",
-                "ERROR", JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				
-			}{
-			viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
-			}
+		if(allShifts.peek() != null) {
+			setviewEligibleEmployeesAreaText();
+		}
+		else {
+			viewEligibleEmployeesAreaText = ("");
+			JOptionPane.showMessageDialog(AssignShiftPanel.this, "There are no more shifts to fill",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
 			
 		}
 		
 		viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);
-	}	
+		
+	}
+	
+	
+	public void setviewEligibleEmployeesAreaText() {
+		viewEligibleEmployeesAreaText = ("");
+
+		checkEmployeesForShift();
+		
+		if(selectedShiftToDisplay != null) {
+			for(Employee selectedEmployee: assigner.determineEligibleEmployeesList(allEmployees, selectedShiftToDisplay)) {
+				viewEligibleEmployeesAreaText += selectedEmployee.toString() + "\n";
+			}
+			
+			viewEligibleEmployeesArea.setText(viewEligibleEmployeesAreaText);	
+		}
+	}
 }
