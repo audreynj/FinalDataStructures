@@ -130,6 +130,7 @@ public class AssignShiftPanel extends JPanel{
 				} catch (Exception exception) {
 					JOptionPane.showMessageDialog(AssignShiftPanel.this, "Please Enter a Valid Employee ID",
                            "ERROR", JOptionPane.ERROR_MESSAGE);
+					clearFields();
 				}
 			}
 			else if (e.getSource() == updateViewButton) {
@@ -149,19 +150,24 @@ public class AssignShiftPanel extends JPanel{
 		
 		selectedShiftToDisplay = null;
 		for(int i = 0;i < allShifts.size(); i++) {
-			if (!assigner.determineEligibleEmployeesList(allEmployees, shifts.peek()).isEmpty()) {
-				
-				if(shiftsSkipped!=0) {
-					JOptionPane.showMessageDialog(AssignShiftPanel.this, "IMPORTANT: Had to skip " + shiftsSkipped + " shifts because they could not be filled",
-	                           "ERROR", JOptionPane.ERROR_MESSAGE);
+			if(shifts.peek().isShiftTaken() == false) {
+				if (!assigner.determineEligibleEmployeesList(allEmployees, shifts.peek()).isEmpty()) {
+					
+					if(shiftsSkipped!=0) {
+						JOptionPane.showMessageDialog(AssignShiftPanel.this, "IMPORTANT: Had to skip " + shiftsSkipped + " shifts because they could not be filled",
+		                           "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+					selectedShiftToDisplay = shifts.peek();
+					break;
 				}
-				selectedShiftToDisplay = shifts.peek();
-				break;
+				else {
+					shiftsSkipped++;
+					shifts.poll();
+				}	
 			}
 			else {
-				shiftsSkipped++;
 				shifts.poll();
-			}
+				}
 		}
 		
 		if(selectedShiftToDisplay == null) {

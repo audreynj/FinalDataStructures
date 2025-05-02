@@ -21,16 +21,17 @@ import model.Employee;
 import model.Shift;
 import view.AssignShiftPanel.ButtonListener;
 
-public class ViewAllRemainingShiftsPanel extends JPanel{
+public class ViewAllShiftsPanel extends JPanel{
 
 	private JButton updateViewButton = new JButton("Update Shifts");
 	private JTextArea viewRemainingShiftsArea = new JTextArea(10, 70);
+	private String viewRemainingShiftsAreaText = "";
 
+	
+	//Create allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
-	
-	private String viewRemainingShiftsAreaText = "";
-	
+		
 	//Getter and Setters
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
@@ -46,7 +47,7 @@ public class ViewAllRemainingShiftsPanel extends JPanel{
 	}
 	
 
-	public ViewAllRemainingShiftsPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+	public ViewAllShiftsPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -86,10 +87,12 @@ public class ViewAllRemainingShiftsPanel extends JPanel{
 				viewRemainingShiftsAreaText = "";
 				for(Shift selectedShift: allShifts) 
 				{
+					if(selectedShift.isShiftTaken() == false) {
 					viewRemainingShiftsAreaText += selectedShift.toString() + "\n";
 				}
 				
 				viewRemainingShiftsArea.setText(viewRemainingShiftsAreaText);	
+				}
 			}
 		}
 	}

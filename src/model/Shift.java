@@ -6,7 +6,6 @@
 
 package model;
 
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class Shift implements Comparable<Shift>{
@@ -17,6 +16,7 @@ public class Shift implements Comparable<Shift>{
 	private int endTime;
 	private String priority;
 	private int shiftLength;
+	private boolean shiftTaken;
 	
 	public Shift(int id, String day, int startTime, int endTime, String priority) {
 		this.id = id;
@@ -25,6 +25,7 @@ public class Shift implements Comparable<Shift>{
 		this.endTime = endTime;
 		this.priority = priority;
 		this.shiftLength = endTime - startTime;
+		this.shiftTaken = false;
 	}
 	
 	
@@ -35,6 +36,7 @@ public class Shift implements Comparable<Shift>{
 		this.endTime = endTime;
 		this.priority = priority;
 		this.shiftLength = endTime - startTime;
+		this.shiftTaken = false;
 	}
 
 	public Shift() {
@@ -112,11 +114,19 @@ public class Shift implements Comparable<Shift>{
 	public void setShiftLength(int shiftLength) {
 		this.shiftLength = shiftLength;
 	}
-	
-	
+	public boolean isShiftTaken() {
+		return shiftTaken;
+	}
+	public void setShiftTaken(boolean shiftTaken) {
+		this.shiftTaken = shiftTaken;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Shift [id=" + id + ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", priority="
-				+ priority + ", shiftLength=" + shiftLength + "]";
-	}	
+				+ priority + ", shiftLength=" + shiftLength + ", shiftTaken=" + shiftTaken + "]";
+	}
+
+
 }

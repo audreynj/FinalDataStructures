@@ -4,9 +4,6 @@
 * @since 1.0
 */
 
-
-
-
 package view;
 
 import java.awt.CardLayout;
@@ -25,16 +22,23 @@ import model.Shift;
 
 public class ProgramFrame extends JFrame{
 
-	//Panels under view
+	//Panels under View
 	private StartPanel startPanel;
 	private ViewAllEmployeesPanel viewAllEmployeesPanel;
-	private ViewAllRemainingShiftsPanel viewAllShiftsPanel;
+	private ViewAllShiftsPanel viewAllShiftsPanel;
 	private ViewCalendarPanel viewCalendarPanel;
 
 	//Panels under Add or Assign
 	private AddEmployeePanel addEmployeePanel;
 	private AddShiftPanel addShiftPanel;
 	private AssignShiftPanel assignShiftPanel;
+	
+	//Panels under Remove
+	private RemoveShiftPanel removeShiftPanel;
+	private RemoveEmployeePanel removeEmployeePanel;
+	private UnassignShiftPanel unassignShiftPanel;
+
+
 
 	//This panel will have the others added onto it
 	private JPanel allPanels;
@@ -43,13 +47,15 @@ public class ProgramFrame extends JFrame{
 	private JMenuBar menuBar;
 	private JMenu addOrAssignMenu;
 	private JMenu viewMenu;
+	private JMenu removeMenu;
+
 	
 	//
 	public ProgramFrame(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
 		
 		startPanel = new StartPanel(allEmployees, allShifts);
 		viewAllEmployeesPanel = new ViewAllEmployeesPanel(allEmployees, allShifts);
-		viewAllShiftsPanel = new ViewAllRemainingShiftsPanel(allEmployees, allShifts);
+		viewAllShiftsPanel = new ViewAllShiftsPanel(allEmployees, allShifts);
 		viewCalendarPanel = new ViewCalendarPanel(allEmployees, allShifts);
 		
 		
@@ -57,6 +63,10 @@ public class ProgramFrame extends JFrame{
 		addShiftPanel = new AddShiftPanel(allEmployees, allShifts);
 		assignShiftPanel = new AssignShiftPanel(allEmployees, allShifts);
 		
+		removeShiftPanel = new RemoveShiftPanel(allEmployees, allShifts);
+		removeEmployeePanel = new RemoveEmployeePanel(allEmployees, allShifts);
+		unassignShiftPanel = new UnassignShiftPanel(allEmployees, allShifts);
+
 		
 		allPanels = new JPanel(new CardLayout());
 		
@@ -70,6 +80,7 @@ public class ProgramFrame extends JFrame{
 		menuBar = new JMenuBar();
 		addOrAssignMenu = new JMenu("Add or Assign");
 		viewMenu = new JMenu("Views");
+		removeMenu = new JMenu("Remove");
 
 		
 		//Create menu items for each panel
@@ -81,10 +92,17 @@ public class ProgramFrame extends JFrame{
 		JMenuItem addEmployee = new JMenuItem("Add Employee");
 		JMenuItem addShift = new JMenuItem("Add Shift");
 		JMenuItem assignShifts = new JMenuItem("Assign Shifts");
+		
+		JMenuItem removeShift = new JMenuItem("Remove Shift");
+		JMenuItem removeEmployee = new JMenuItem("Remove Employee");
+		JMenuItem unassignShift = new JMenuItem("Unassign Shift");
+
 
 		//Add all to the frame
 		menuBar.add(viewMenu);
 		menuBar.add(addOrAssignMenu);
+		menuBar.add(removeMenu);
+
 		
 		viewMenu.add(start);
 		viewMenu.add(viewAllEmployees);
@@ -94,6 +112,12 @@ public class ProgramFrame extends JFrame{
 		addOrAssignMenu.add(addEmployee);
 		addOrAssignMenu.add(addShift);
 		addOrAssignMenu.add(assignShifts);
+		
+		removeMenu.add(removeShift);
+		removeMenu.add(removeEmployee);
+		removeMenu.add(unassignShift);
+
+
 
 		
 		
@@ -106,6 +130,11 @@ public class ProgramFrame extends JFrame{
 		addEmployee.addActionListener(select->changeScreen("5"));
 		addShift.addActionListener(select->changeScreen("6"));
 		assignShifts.addActionListener(select->changeScreen("7"));
+		
+		removeShift.addActionListener(select->changeScreen("8"));
+		removeEmployee.addActionListener(select->changeScreen("9"));
+		unassignShift.addActionListener(select->changeScreen("10"));
+
 	}
 	
 	private void setUpFrame() {
@@ -127,6 +156,14 @@ public class ProgramFrame extends JFrame{
 		allPanels.add(addEmployeePanel, "5");
 		allPanels.add(addShiftPanel, "6");
 		allPanels.add(assignShiftPanel, "7");
+		
+		
+		//Adding Remove panels
+		allPanels.add(removeShiftPanel, "8");
+		allPanels.add(removeEmployeePanel, "9");
+		allPanels.add(unassignShiftPanel, "10");
+
+
 		
 		//Add the panels and menubar to the frame
 		this.add(allPanels);

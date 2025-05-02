@@ -25,14 +25,6 @@ import view.AssignShiftPanel.ButtonListener;
 
 public class AddEmployeePanel extends JPanel{
 
-	
-	//Spots to add id number, name, etc
-	
-	//Confirm button
-	//Clear button
-	//Back button
-	
-	//Will change this button
 	private JButton addEmployeeButton = new JButton("Add employee");
 	private JButton clearButton = new JButton("Clear");
 

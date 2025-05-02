@@ -6,7 +6,6 @@
 
 package view;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import javax.swing.JTextField;
 
 import model.Employee;
 import model.Shift;
-import view.AssignShiftPanel.ButtonListener;
 
 public class AddShiftPanel extends JPanel{
 
@@ -36,6 +34,7 @@ public class AddShiftPanel extends JPanel{
 	private JLabel priorityLabel = new JLabel("Priority: ");
 
 
+	//Radio button and groups initialized for the day of the week and priority 
 	private ButtonGroup dayGroup = new ButtonGroup();
 	
 	private JRadioButton dayM = new JRadioButton("Monday");
@@ -45,15 +44,17 @@ public class AddShiftPanel extends JPanel{
 	private JRadioButton dayF = new JRadioButton("Friday");
 	private JRadioButton dayS = new JRadioButton("Saturday");
 
-	
-	private JTextField startTimeField = new JTextField(8);
-	private JTextField endTimeField = new JTextField(8);
-	
 	private ButtonGroup priorityGroup = new ButtonGroup();
 	
 	private JRadioButton priorityImportant = new JRadioButton("Important");
 	private JRadioButton priorityHigh = new JRadioButton("High");
 	private JRadioButton priorityLow = new JRadioButton("Low");
+	
+	
+	private JTextField startTimeField = new JTextField(8);
+	private JTextField endTimeField = new JTextField(8);
+	
+	
 	
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
@@ -112,7 +113,7 @@ public class AddShiftPanel extends JPanel{
         				.addComponent(dayW)
         				.addComponent(dayTh)
         				.addComponent(dayF)
-        				.addComponent(dayS))				
+        				.addComponent(dayS))			
         		.addGroup(layout.createSequentialGroup()
         				.addComponent(startTimeLabel)
         				.addComponent(startTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))

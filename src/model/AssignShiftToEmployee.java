@@ -147,6 +147,28 @@ public class AssignShiftToEmployee {
 	public void assignShift(Employee selectedEmployee, Shift selectedShift, PriorityQueue<Shift> allAvailableAShifts) {
 		selectedEmployee.addShift(selectedShift);
 		
+		selectedShift.setShiftTaken(true);
+		}	
+	
+	public void removeShift(Shift selectedShift, PriorityQueue<Shift> allAvailableAShifts) {		
 		allAvailableAShifts.remove(selectedShift);
-	}		
+		}	
+	
+	public void removeEmployee(Employee selectedEmployee, ArrayList<Employee> allEmployees) {		
+		allEmployees.remove(selectedEmployee);
+		}	
+	
+	
+	public void unassignShift(Shift selectedShift, ArrayList<Employee> allEmployees) {
+		for(Employee selectedEmployee:allEmployees) {
+			for(Shift selectedEmployeeShift:selectedEmployee.getShiftsTaken()) {
+				if(selectedEmployeeShift.getId() == selectedShift.getId()) {
+					selectedEmployeeShift.setShiftTaken(false);
+					selectedEmployee.getShiftsTaken().remove(selectedEmployeeShift);
+					selectedEmployee.setRemainingWantedHours(selectedEmployee.getRemainingWantedHours() + selectedEmployeeShift.getShiftLength());
+					break;
+				}
+			}
+		}
+	}
 }
