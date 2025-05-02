@@ -22,7 +22,7 @@ import model.Shift;
 import view.AssignShiftPanel.ButtonListener;
 
 public class ViewAllShiftsPanel extends JPanel{
-
+	//Create components for the panel
 	private JButton updateViewButton = new JButton("Update Shifts");
 	private JTextArea viewRemainingShiftsArea = new JTextArea(10, 70);
 	private String viewRemainingShiftsAreaText = "";

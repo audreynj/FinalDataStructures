@@ -17,7 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
 
 import model.Employee;
 import model.Shift;
@@ -36,6 +38,10 @@ public class AddEmployeePanel extends JPanel{
 	private JTextField wantedHoursField = new JTextField(4);
 	private JTextField nameField = new JTextField(4);
 	
+	//List with values for spinners
+	private Integer[] hoursOfDay = {0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
+
+	
 	private JLabel mStartLabel = new JLabel("Monday Start Time: ");
 	private JLabel mEndLabel = new JLabel("Monday End Time: ");
 	private JLabel tuStartLabel = new JLabel("Tuesday Start Time: ");
@@ -49,18 +55,18 @@ public class AddEmployeePanel extends JPanel{
 	private JLabel sStartLabel = new JLabel("Saturday Start Time: ");
 	private JLabel sEndLabel = new JLabel("Saturday End Time");
 	
-	private JTextField mStartField = new JTextField(4);
-	private JTextField mEndField = new JTextField(4);
-	private JTextField tuStartField = new JTextField(4);
-	private JTextField tuEndField = new JTextField(4);
-	private JTextField wStartField = new JTextField(4);
-	private JTextField wEndField = new JTextField(4);
-	private JTextField thStartField = new JTextField(4);
-	private JTextField thEndField = new JTextField(4);
-	private JTextField fStartField = new JTextField(4);
-	private JTextField fEndField = new JTextField(4);
-	private JTextField sStartField = new JTextField(4);
-	private JTextField sEndField = new JTextField(4);
+	private JSpinner mStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner mEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner tuStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner tuEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner wStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner wEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner thStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner thEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner fStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner fEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner sStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner sEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
 
 	
 	
@@ -68,6 +74,7 @@ public class AddEmployeePanel extends JPanel{
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
+	//Getter and setter methods
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -93,13 +100,29 @@ public class AddEmployeePanel extends JPanel{
 		addEmployeeButton.addActionListener(bl);
 		clearButton.addActionListener(bl);
 				
-		// Adds the components to the panel
+		
+		//Restrict editing the number to pressing the arrow keys 
+		restrictSpinnerToArrows(mStartSpinner);
+		restrictSpinnerToArrows(mEndSpinner);
+		restrictSpinnerToArrows(tuStartSpinner);
+		restrictSpinnerToArrows(tuEndSpinner);
+		restrictSpinnerToArrows(wStartSpinner);
+		restrictSpinnerToArrows(wEndSpinner);
+		restrictSpinnerToArrows(thStartSpinner);
+		restrictSpinnerToArrows(thEndSpinner);
+		restrictSpinnerToArrows(fStartSpinner);
+		restrictSpinnerToArrows(fEndSpinner);
+		restrictSpinnerToArrows(sStartSpinner);
+		restrictSpinnerToArrows(sEndSpinner);
+		
+		
+		
+		// Adds the components to the panel by using GroupLayout
 		GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-        
-
+       
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
         				.addComponent(idLabel)
@@ -112,40 +135,40 @@ public class AddEmployeePanel extends JPanel{
 						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(mStartLabel)
-						.addComponent(mStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(mStartSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(mEndLabel)
-						.addComponent(mEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(mEndSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(tuStartLabel)
-						.addComponent(tuStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tuStartSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(tuEndLabel)
-						.addComponent(tuEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tuEndSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(wStartLabel)
-						.addComponent(wStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(wStartSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(wEndLabel)
-						.addComponent(wEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(wEndSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(thStartLabel)
-						.addComponent(thStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(thStartSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(thEndLabel)
-						.addComponent(thEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(thEndSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(fStartLabel)
-						.addComponent(fStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(fStartSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(fEndLabel)
-						.addComponent(fEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(fEndSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(sStartLabel)
-						.addComponent(sStartField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(sStartSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(sEndLabel)
-						.addComponent(sEndField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addComponent(sEndSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(addEmployeeButton)
 						.addComponent(clearButton)));
@@ -163,44 +186,43 @@ public class AddEmployeePanel extends JPanel{
         				.addComponent(nameField))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(mStartLabel)
-						.addComponent(mStartField))
+						.addComponent(mStartSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(mEndLabel)
-						.addComponent(mEndField))
+						.addComponent(mEndSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(tuStartLabel)
-						.addComponent(tuStartField))
+						.addComponent(tuStartSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(tuEndLabel)
-						.addComponent(tuEndField))
+						.addComponent(tuEndSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(wStartLabel)
-						.addComponent(wStartField))
+						.addComponent(wStartSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(wEndLabel)
-						.addComponent(wEndField))
+						.addComponent(wEndSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(thStartLabel)
-						.addComponent(thStartField))
+						.addComponent(thStartSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(thEndLabel)
-						.addComponent(thEndField))
+						.addComponent(thEndSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(fStartLabel)
-						.addComponent(fStartField))
+						.addComponent(fStartSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(fEndLabel)
-						.addComponent(fEndField))
+						.addComponent(fEndSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(sStartLabel)
-						.addComponent(sStartField))
+						.addComponent(sStartSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(sEndLabel)
-						.addComponent(sEndField))
+						.addComponent(sEndSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(addEmployeeButton)
 						.addComponent(clearButton)));
-
 	}
 	
 		class ButtonListener implements ActionListener {
@@ -211,18 +233,18 @@ public class AddEmployeePanel extends JPanel{
 				try {
 					ArrayList<Integer> hoursAvailable =  new ArrayList<>() {
 						{
-							add(Integer.parseInt(mStartField.getText()));
-							add(Integer.parseInt(mEndField.getText()));
-							add(Integer.parseInt(tuStartField.getText()));
-							add(Integer.parseInt(tuEndField.getText()));
-							add(Integer.parseInt(wStartField.getText()));
-							add(Integer.parseInt(wEndField.getText()));
-							add(Integer.parseInt(thStartField.getText()));
-							add(Integer.parseInt(thEndField.getText()));
-							add(Integer.parseInt(fStartField.getText()));
-							add(Integer.parseInt(fEndField.getText()));
-							add(Integer.parseInt(sStartField.getText()));
-							add(Integer.parseInt(sEndField.getText()));
+							add((Integer)(mStartSpinner.getValue()));
+							add((Integer)(mEndSpinner.getValue()));
+							add((Integer)(tuStartSpinner.getValue()));
+							add((Integer)(tuEndSpinner.getValue()));
+							add((Integer)(wStartSpinner.getValue()));
+							add((Integer)(wEndSpinner.getValue()));
+							add((Integer)(thStartSpinner.getValue()));
+							add((Integer)(thEndSpinner.getValue()));
+							add((Integer)(fStartSpinner.getValue()));
+							add((Integer)(fEndSpinner.getValue()));
+							add((Integer)(sStartSpinner.getValue()));
+							add((Integer)(sEndSpinner.getValue()));
 
 						}
 					};
@@ -250,17 +272,25 @@ public class AddEmployeePanel extends JPanel{
 			wantedHoursField.setText("");
 			nameField.setText("");
 			
-			mStartField.setText("");
-			mEndField.setText("");
-			tuStartField.setText("");
-			tuEndField.setText("");
-			wStartField.setText("");
-			wEndField.setText("");
-			thStartField.setText("");
-			thEndField.setText("");
-			fStartField.setText("");
-			fEndField.setText("");
-			sStartField.setText("");
-			sEndField.setText("");
+			mStartSpinner.setValue(0);
+			mEndSpinner.setValue(0);
+			tuStartSpinner.setValue(0);
+			tuEndSpinner.setValue(0);
+			wStartSpinner.setValue(0);
+			wEndSpinner.setValue(0);
+			thStartSpinner.setValue(0);
+			thEndSpinner.setValue(0);
+			fStartSpinner.setValue(0);
+			fEndSpinner.setValue(0);
+			sStartSpinner.setValue(0);
+			sEndSpinner.setValue(0);
 	}
+		
+		public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
+			if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
+				   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
+				   editor.getTextField().setEnabled( true );
+				   editor.getTextField().setEditable( false );
+			}	
+		}
 }

@@ -82,6 +82,7 @@ public class RemoveEmployeePanel extends JPanel{
 		JScrollPane scroll = new JScrollPane(viewEmployeesArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scroll);
 		
+		// Adds the components to the panel by using GroupLayout
 		GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setAutoCreateGaps(true);

@@ -21,15 +21,14 @@ import model.Employee;
 import model.Shift;
 
 public class ViewCalendarPanel extends JPanel{
-
-	//Create allEmployees and allShifts
+	//Create components for the panel
 	private JButton updateCalendarButton = new JButton("Update Calendar");
 	private JTextArea calendarArea = new JTextArea(10, 70);
 	
 	//TextArea to display calendar text
 	private String calendarAreaText = "";
 
-	//Create allEmployees and allShifts
+	//Initialize allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
@@ -77,7 +76,7 @@ public class ViewCalendarPanel extends JPanel{
 		calendarArea.setText(calendarAreaText);	
 		
 		
-		// Adds the buttons to the panel
+		// Adds the button to the panel
 		add(updateCalendarButton);
 	
 	}

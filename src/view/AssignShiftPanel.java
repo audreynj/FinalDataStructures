@@ -80,7 +80,7 @@ public class AssignShiftPanel extends JPanel{
 		add(scroll);
 		
 		
-		// Adds the components to the panel
+		// Adds the components to the panel by using GroupLayout
 		GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setAutoCreateGaps(true);

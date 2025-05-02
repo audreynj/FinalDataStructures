@@ -18,7 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
 
 import model.Employee;
 import model.Shift;
@@ -32,6 +33,13 @@ public class AddShiftPanel extends JPanel{
 	private JLabel startTimeLabel = new JLabel("Start Time: ");
 	private JLabel endTimeLabel = new JLabel("End Time: ");
 	private JLabel priorityLabel = new JLabel("Priority: ");
+	
+	//List with values for spinners
+	private Integer[] hoursOfDay = {0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
+	
+	
+	private JSpinner startTimeSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner endTimeSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
 
 
 	//Radio button and groups initialized for the day of the week and priority 
@@ -51,11 +59,8 @@ public class AddShiftPanel extends JPanel{
 	private JRadioButton priorityLow = new JRadioButton("Low");
 	
 	
-	private JTextField startTimeField = new JTextField(8);
-	private JTextField endTimeField = new JTextField(8);
 	
-	
-	
+		
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 
@@ -98,7 +103,13 @@ public class AddShiftPanel extends JPanel{
 		dayGroup.add(dayF);
 		dayGroup.add(dayS);
 		
-		// Adds the components to the panel
+		
+		//Restrict editing the number to pressing the arrow keys 
+		restrictSpinnerToArrows(startTimeSpinner);
+		restrictSpinnerToArrows(endTimeSpinner);
+		
+		
+		// Adds the components to the panel by using GroupLayout
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setAutoCreateGaps(true);
@@ -116,10 +127,10 @@ public class AddShiftPanel extends JPanel{
         				.addComponent(dayS))			
         		.addGroup(layout.createSequentialGroup()
         				.addComponent(startTimeLabel)
-        				.addComponent(startTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(startTimeSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
         				.addComponent(endTimeLabel)
-        				.addComponent(endTimeField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(endTimeSpinner, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(priorityLabel)
         				.addComponent(priorityImportant)
@@ -140,10 +151,10 @@ public class AddShiftPanel extends JPanel{
         				.addComponent(dayS))			
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(startTimeLabel)
-        				.addComponent(startTimeField))
+        				.addComponent(startTimeSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
         				.addComponent(endTimeLabel)
-        				.addComponent(endTimeField))
+        				.addComponent(endTimeSpinner))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(priorityLabel)
 						.addComponent(priorityImportant)
@@ -192,8 +203,8 @@ public class AddShiftPanel extends JPanel{
 							day = dayS.getText();
 						}
 						
-						Shift newShift = new Shift(day, Integer.parseInt(startTimeField.getText()),
-								Integer.parseInt(endTimeField.getText()),  priority, allShifts);
+						Shift newShift = new Shift(day, (Integer)startTimeSpinner.getValue(),
+								(Integer)endTimeSpinner.getValue(),  priority, allShifts);
 
 						allShifts.add(newShift);
 
@@ -214,9 +225,19 @@ public class AddShiftPanel extends JPanel{
 		
 		
 	public void clearFields() {
-		startTimeField.setText("");
-		endTimeField.setText("");
+		startTimeSpinner.setValue(0);
+		endTimeSpinner.setValue(0);
 		priorityGroup.clearSelection();
 		dayGroup.clearSelection();
 		}
+	
+	
+	
+	public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
+		if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
+			   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
+			   editor.getTextField().setEnabled( true );
+			   editor.getTextField().setEditable( false );
+		}	
+	}
 }

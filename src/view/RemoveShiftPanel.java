@@ -26,24 +26,25 @@ import model.Employee;
 import model.Shift;
 
 public class RemoveShiftPanel extends JPanel{
+	
+	//Create components for the panel
 	private JButton removeShiftButton = new JButton("Remove Shift");
 	private JButton clearButton = new JButton("Clear");
 	private JButton updateViewButton = new JButton("Update Shift List");
 
-
 	private JLabel removeLabel = new JLabel("Remove Shift: ");
 	private JTextField removeShiftField = new JTextField(8);
-
 	
 	private JTextArea viewShiftsArea = new JTextArea(10, 70);
 	private String viewShiftsAreaText = "";
 	
+	//Initialize allEmployees, allShifts, and assigner
+	private ArrayList<Employee> allEmployees;
+	private PriorityQueue<Shift> allShifts;
 	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
 
 	
-	private ArrayList<Employee> allEmployees;
-	private PriorityQueue<Shift> allShifts;
-	
+	//Getter and Setter method
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -58,6 +59,7 @@ public class RemoveShiftPanel extends JPanel{
 	}
 	
 	public RemoveShiftPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -80,9 +82,11 @@ public class RemoveShiftPanel extends JPanel{
 		viewShiftsArea.setEnabled(false);
 		viewShiftsArea.setDisabledTextColor(Color.BLACK);
 				
+		//Use JScrollPane for JTextArea and setEditable(false)
 		JScrollPane scroll = new JScrollPane(viewShiftsArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scroll);
 		
+		// Adds the components to the panel by using GroupLayout
 		GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setAutoCreateGaps(true);
@@ -111,7 +115,6 @@ public class RemoveShiftPanel extends JPanel{
         				.addComponent(removeShiftButton)
         				.addComponent(clearButton)
 						.addComponent(updateViewButton)));
-		
 	}
 	
 	
