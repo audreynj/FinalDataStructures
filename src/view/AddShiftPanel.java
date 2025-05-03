@@ -171,18 +171,8 @@ public class AddShiftPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == addShiftButton) {
+					conditions:
 					try {
-						String priority = "";
-						if(priorityImportant.isSelected()) {
-							priority = priorityImportant.getText();
-						}
-						else if(priorityHigh.isSelected()) {
-							priority = priorityHigh.getText();
-						}
-						else {
-							priority = priorityLow.getText();
-						}
-						
 						String day = "";
 						if(dayM.isSelected()) {
 							day = dayM.getText();
@@ -199,14 +189,44 @@ public class AddShiftPanel extends JPanel{
 						else if(dayF.isSelected()) {
 							day = dayF.getText();
 						}
-						else {
+						else if(dayS.isSelected()) {
 							day = dayS.getText();
 						}
+						else {
+							JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Select a Day", 
+	                                "ERROR", JOptionPane.ERROR_MESSAGE);
+							clearFields();
+							break conditions;
+						}
 						
-						Shift newShift = new Shift(day, (Integer)startTimeSpinner.getValue(),
-								(Integer)endTimeSpinner.getValue(),  priority, allShifts);
+						String priority = "";
+						if(priorityImportant.isSelected()) {
+							priority = priorityImportant.getText();
+						}
+						else if(priorityHigh.isSelected()) {
+							priority = priorityHigh.getText();
+						}
+						else if(priorityLow.isSelected()) {
+							priority = priorityLow.getText();
+						}
+						else {
+							JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Select a Priority", 
+	                                "ERROR", JOptionPane.ERROR_MESSAGE);
+							clearFields();
+							break conditions;						
+							}
+						
+						
+						if((Integer)startTimeSpinner.getValue() < (Integer)endTimeSpinner.getValue()) {
+							Shift newShift = new Shift(day, (Integer)startTimeSpinner.getValue(),
+									(Integer)endTimeSpinner.getValue(),  priority, allShifts);
 
-						allShifts.add(newShift);
+							allShifts.add(newShift);
+						}
+						else{
+							JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Put in Correct Hours", 
+	                                "ERROR", JOptionPane.ERROR_MESSAGE);
+						}
 
 						clearFields();
 												

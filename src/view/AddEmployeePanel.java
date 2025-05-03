@@ -230,7 +230,25 @@ public class AddEmployeePanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == addEmployeeButton) {
-				try {
+					conditions:
+					try {
+					if(checkHoursInputedCorrect(mStartSpinner,mEndSpinner) == false
+							|| checkHoursInputedCorrect(tuStartSpinner,tuEndSpinner) == false
+							|| checkHoursInputedCorrect(wStartSpinner,wEndSpinner) == false
+							|| checkHoursInputedCorrect(thStartSpinner,thEndSpinner) == false
+							|| checkHoursInputedCorrect(fStartSpinner,fEndSpinner) == false
+							||checkHoursInputedCorrect(sStartSpinner,sEndSpinner) == false)
+							{
+						JOptionPane.showMessageDialog(AddEmployeePanel.this, "Make Have 2nd Number for Day Larger", 
+                                "ERROR", JOptionPane.ERROR_MESSAGE);
+						clearFields();
+						break conditions;		
+						
+							}
+					
+					
+					
+					
 					ArrayList<Integer> hoursAvailable =  new ArrayList<>() {
 						{
 							add((Integer)(mStartSpinner.getValue()));
@@ -262,35 +280,50 @@ public class AddEmployeePanel extends JPanel{
 				}
 			}
 				
-		if (e.getSource() == clearButton) {
-			clearFields();
+			if (e.getSource() == clearButton) {
+				clearFields();
+			}
 		}
-	}
-}		
-		public void clearFields() {
-			idField.setText("");
-			wantedHoursField.setText("");
-			nameField.setText("");
-			
-			mStartSpinner.setValue(0);
-			mEndSpinner.setValue(0);
-			tuStartSpinner.setValue(0);
-			tuEndSpinner.setValue(0);
-			wStartSpinner.setValue(0);
-			wEndSpinner.setValue(0);
-			thStartSpinner.setValue(0);
-			thEndSpinner.setValue(0);
-			fStartSpinner.setValue(0);
-			fEndSpinner.setValue(0);
-			sStartSpinner.setValue(0);
-			sEndSpinner.setValue(0);
+	}		
+	public void clearFields() {
+		idField.setText("");
+		wantedHoursField.setText("");
+		nameField.setText("");
+		
+		mStartSpinner.setValue(0);
+		mEndSpinner.setValue(0);
+		tuStartSpinner.setValue(0);
+		tuEndSpinner.setValue(0);
+		wStartSpinner.setValue(0);
+		wEndSpinner.setValue(0);
+		thStartSpinner.setValue(0);
+		thEndSpinner.setValue(0);
+		fStartSpinner.setValue(0);
+		fEndSpinner.setValue(0);
+		sStartSpinner.setValue(0);
+		sEndSpinner.setValue(0);
 	}
 		
-		public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
-			if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
-				   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
-				   editor.getTextField().setEnabled( true );
-				   editor.getTextField().setEditable( false );
-			}	
+	public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
+		if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
+			   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
+			   editor.getTextField().setEnabled( true );
+			   editor.getTextField().setEditable( false );
+		}	
+	}
+		
+	
+	public boolean checkHoursInputedCorrect(JSpinner selectedSpinner1, JSpinner selectedSpinner2) {
+		
+		if((Integer)selectedSpinner1.getValue() > (Integer)selectedSpinner2.getValue()) {
+			return false;
+			
+			}
+		
+		return true;
+		
+		
+		
 		}
+		 
 }
