@@ -38,8 +38,6 @@ public class ProgramFrame extends JFrame{
 	private RemoveEmployeePanel removeEmployeePanel;
 	private UnassignShiftPanel unassignShiftPanel;
 
-
-
 	//This panel will have the others added onto it
 	private JPanel allPanels;
 	
@@ -50,9 +48,9 @@ public class ProgramFrame extends JFrame{
 	private JMenu removeMenu;
 
 	
-	//
+	
 	public ProgramFrame(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
-		
+		//Initialize all panels
 		startPanel = new StartPanel(allEmployees, allShifts);
 		viewAllEmployeesPanel = new ViewAllEmployeesPanel(allEmployees, allShifts);
 		viewAllShiftsPanel = new ViewAllShiftsPanel(allEmployees, allShifts);
@@ -67,7 +65,7 @@ public class ProgramFrame extends JFrame{
 		removeEmployeePanel = new RemoveEmployeePanel(allEmployees, allShifts);
 		unassignShiftPanel = new UnassignShiftPanel(allEmployees, allShifts);
 
-		
+		//Create a new CardLayout
 		allPanels = new JPanel(new CardLayout());
 		
 		setUpMenu();
@@ -80,7 +78,7 @@ public class ProgramFrame extends JFrame{
 		menuBar = new JMenuBar();
 		addOrAssignMenu = new JMenu("Add or Assign");
 		viewMenu = new JMenu("Views");
-		removeMenu = new JMenu("Remove");
+		removeMenu = new JMenu("Remove or Unassign");
 
 		
 		//Create menu items for each panel
@@ -116,11 +114,6 @@ public class ProgramFrame extends JFrame{
 		removeMenu.add(removeShift);
 		removeMenu.add(removeEmployee);
 		removeMenu.add(unassignShift);
-
-
-
-		
-		
 		//Action listeners to change the screen
 		start.addActionListener(select->changeScreen("1"));
 		viewAllEmployees.addActionListener(select->changeScreen("2"));
@@ -172,7 +165,7 @@ public class ProgramFrame extends JFrame{
 		this.pack();
 	}
 	
-	//Will will change the view when somthing on the menu bar is selcted
+	//Will will change the view when something on the menu bar is selected
 	private void changeScreen(String screen) {
 		((CardLayout)allPanels.getLayout()).show(allPanels, screen);
 	}

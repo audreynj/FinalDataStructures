@@ -11,15 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
 import model.Employee;
 import model.Shift;
-import view.AssignShiftPanel.ButtonListener;
 
 public class ViewAllShiftsPanel extends JPanel{
 	//Create components for the panel
@@ -28,7 +25,7 @@ public class ViewAllShiftsPanel extends JPanel{
 	private String viewRemainingShiftsAreaText = "";
 
 	
-	//Create allEmployees and allShifts
+	//Declare allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 		
@@ -48,6 +45,7 @@ public class ViewAllShiftsPanel extends JPanel{
 	
 
 	public ViewAllShiftsPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -67,19 +65,17 @@ public class ViewAllShiftsPanel extends JPanel{
 		viewRemainingShiftsArea.setEnabled(false);
 		viewRemainingShiftsArea.setDisabledTextColor(Color.BLACK);
 		
-
-		
 		JScrollPane scroll = new JScrollPane(viewRemainingShiftsArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scroll);
 		
-		// Adds the buttons to the panel
+		// Adds the button to the panel
 		add(updateViewButton);
 
 	}
 		
-	//Will add removeShift() later, might have button in this file
 	class ButtonListener implements ActionListener {
 
+		//ButtonListener will update the shifts if the button is pressed
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == updateViewButton) 
@@ -87,12 +83,10 @@ public class ViewAllShiftsPanel extends JPanel{
 				viewRemainingShiftsAreaText = "";
 				for(Shift selectedShift: allShifts) 
 				{
-					if(selectedShift.isShiftTaken() == false) {
 					viewRemainingShiftsAreaText += selectedShift.toString() + "\n";
 				}
 				
 				viewRemainingShiftsArea.setText(viewRemainingShiftsAreaText);	
-				}
 			}
 		}
 	}

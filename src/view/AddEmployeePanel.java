@@ -9,9 +9,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.PriorityQueue;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,13 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
-
 import model.Employee;
 import model.Shift;
-import view.AssignShiftPanel.ButtonListener;
 
 public class AddEmployeePanel extends JPanel{
-
+	//Create components for the panel
 	private JButton addEmployeeButton = new JButton("Add employee");
 	private JButton clearButton = new JButton("Clear");
 
@@ -41,6 +37,19 @@ public class AddEmployeePanel extends JPanel{
 	//List with values for spinners
 	private Integer[] hoursOfDay = {0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
 
+	//Spinner components and their labels
+	private JSpinner mStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner mEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner tuStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner tuEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner wStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner wEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner thStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner thEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner fStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner fEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner sStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
+	private JSpinner sEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
 	
 	private JLabel mStartLabel = new JLabel("Monday Start Time: ");
 	private JLabel mEndLabel = new JLabel("Monday End Time: ");
@@ -55,22 +64,8 @@ public class AddEmployeePanel extends JPanel{
 	private JLabel sStartLabel = new JLabel("Saturday Start Time: ");
 	private JLabel sEndLabel = new JLabel("Saturday End Time");
 	
-	private JSpinner mStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner mEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner tuStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner tuEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner wStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner wEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner thStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner thEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner fStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner fEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner sStartSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-	private JSpinner sEndSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
-
 	
-	
-	
+	//Declare allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
@@ -90,6 +85,7 @@ public class AddEmployeePanel extends JPanel{
 	
 
 	public AddEmployeePanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -226,46 +222,43 @@ public class AddEmployeePanel extends JPanel{
 	}
 	
 		class ButtonListener implements ActionListener {
-
+			//ButtonListener will add a new employee or clear in input depending on which button is selected
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == addEmployeeButton) {
 					conditions:
 					try {
-					if(checkHoursInputedCorrect(mStartSpinner,mEndSpinner) == false
-							|| checkHoursInputedCorrect(tuStartSpinner,tuEndSpinner) == false
-							|| checkHoursInputedCorrect(wStartSpinner,wEndSpinner) == false
-							|| checkHoursInputedCorrect(thStartSpinner,thEndSpinner) == false
-							|| checkHoursInputedCorrect(fStartSpinner,fEndSpinner) == false
-							||checkHoursInputedCorrect(sStartSpinner,sEndSpinner) == false)
-							{
-						JOptionPane.showMessageDialog(AddEmployeePanel.this, "Make Have 2nd Number for Day Larger", 
-                                "ERROR", JOptionPane.ERROR_MESSAGE);
-						clearFields();
-						break conditions;		
+						//If all of the day's hours are inputed correct, it will add the employee to the list
+						if(checkHoursInputedCorrect(mStartSpinner,mEndSpinner) == false
+								|| checkHoursInputedCorrect(tuStartSpinner,tuEndSpinner) == false
+								|| checkHoursInputedCorrect(wStartSpinner,wEndSpinner) == false
+								|| checkHoursInputedCorrect(thStartSpinner,thEndSpinner) == false
+								|| checkHoursInputedCorrect(fStartSpinner,fEndSpinner) == false
+								||checkHoursInputedCorrect(sStartSpinner,sEndSpinner) == false)
+								{
+							JOptionPane.showMessageDialog(AddEmployeePanel.this, "Make Sure to Put in Correct Hours", 
+		                            "ERROR", JOptionPane.ERROR_MESSAGE);
+							break conditions;		
+							
+								}
 						
+						ArrayList<Integer> hoursAvailable =  new ArrayList<>() {
+							{
+								add((Integer)(mStartSpinner.getValue()));
+								add((Integer)(mEndSpinner.getValue()));
+								add((Integer)(tuStartSpinner.getValue()));
+								add((Integer)(tuEndSpinner.getValue()));
+								add((Integer)(wStartSpinner.getValue()));
+								add((Integer)(wEndSpinner.getValue()));
+								add((Integer)(thStartSpinner.getValue()));
+								add((Integer)(thEndSpinner.getValue()));
+								add((Integer)(fStartSpinner.getValue()));
+								add((Integer)(fEndSpinner.getValue()));
+								add((Integer)(sStartSpinner.getValue()));
+								add((Integer)(sEndSpinner.getValue()));
+		
 							}
-					
-					
-					
-					
-					ArrayList<Integer> hoursAvailable =  new ArrayList<>() {
-						{
-							add((Integer)(mStartSpinner.getValue()));
-							add((Integer)(mEndSpinner.getValue()));
-							add((Integer)(tuStartSpinner.getValue()));
-							add((Integer)(tuEndSpinner.getValue()));
-							add((Integer)(wStartSpinner.getValue()));
-							add((Integer)(wEndSpinner.getValue()));
-							add((Integer)(thStartSpinner.getValue()));
-							add((Integer)(thEndSpinner.getValue()));
-							add((Integer)(fStartSpinner.getValue()));
-							add((Integer)(fEndSpinner.getValue()));
-							add((Integer)(sStartSpinner.getValue()));
-							add((Integer)(sEndSpinner.getValue()));
-
-						}
-					};
+						};
 					
 					Employee newEmployee = new Employee(Integer.parseInt(idField.getText()), nameField.getText(), Integer.parseInt(wantedHoursField.getText()), hoursAvailable);
 
@@ -275,16 +268,46 @@ public class AddEmployeePanel extends JPanel{
 				}
 				catch(Exception exception) {
 					JOptionPane.showMessageDialog(AddEmployeePanel.this, "Please Enter All Valid Values", 
-                            "ERROR", JOptionPane.ERROR_MESSAGE);
-					clearFields();
-				}
+                            "ERROR", JOptionPane.ERROR_MESSAGE);}
 			}
-				
-			if (e.getSource() == clearButton) {
+			else {
 				clearFields();
 			}
 		}
 	}		
+		
+	/**
+	 * This method restricts the spinner components to be changed by the arrows only
+	 */	
+	public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
+		if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
+			   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
+			   editor.getTextField().setEnabled( true );
+			   editor.getTextField().setEditable( false );
+		}	
+	}
+		
+	/**
+	 * @return true or false depending if the hours were inputed correctly
+	 */
+	public boolean checkHoursInputedCorrect(JSpinner selectedSpinner1, JSpinner selectedSpinner2) {
+		
+		if((Integer)selectedSpinner1.getValue() < (Integer)selectedSpinner2.getValue()) {
+			if((Integer)selectedSpinner1.getValue() != 0) {
+				return true;
+				}
+			}
+		else if((Integer)selectedSpinner1.getValue() == 0 && (Integer)selectedSpinner2.getValue() == 0) {
+			return true;
+		}
+		
+		return false;
+		}
+	
+	/**
+	 * This method will set the different components back to what they
+	 * were when first run 
+	 */
 	public void clearFields() {
 		idField.setText("");
 		wantedHoursField.setText("");
@@ -303,27 +326,5 @@ public class AddEmployeePanel extends JPanel{
 		sStartSpinner.setValue(0);
 		sEndSpinner.setValue(0);
 	}
-		
-	public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
-		if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
-			   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
-			   editor.getTextField().setEnabled( true );
-			   editor.getTextField().setEditable( false );
-		}	
-	}
-		
-	
-	public boolean checkHoursInputedCorrect(JSpinner selectedSpinner1, JSpinner selectedSpinner2) {
-		
-		if((Integer)selectedSpinner1.getValue() > (Integer)selectedSpinner2.getValue()) {
-			return false;
-			
-			}
-		
-		return true;
-		
-		
-		
-		}
 		 
 }

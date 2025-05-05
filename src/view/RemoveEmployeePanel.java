@@ -27,24 +27,23 @@ import model.Shift;
 import view.RemoveShiftPanel.ButtonListener;
 
 public class RemoveEmployeePanel extends JPanel{
+	//Create components for the panel
 	private JButton removeEmployeeButton = new JButton("Remove employee");
 	private JButton clearButton = new JButton("Clear");
-	private JButton updateViewButton = new JButton("Update Shift List");
+	private JButton updateViewButton = new JButton("Update Employee List");
 
-
-	private JLabel removeLabel = new JLabel("Remove Shift: ");
+	private JLabel removeLabel = new JLabel("Remove Employee: ");
 	private JTextField removeEmployeeField = new JTextField(8);
-
 	
 	private JTextArea viewEmployeesArea = new JTextArea(10, 70);
 	private String viewEmployeesAreaText = "";
 	
-	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
-
-	
+	//Declare allEmployees, allShifts, and assigner
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
-	
+	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
+
+	//Getter and Setter methods
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -116,36 +115,43 @@ public class RemoveEmployeePanel extends JPanel{
 	
 	
 	class ButtonListener implements ActionListener {
-
+		
+		//ButtonListener will remove an employee or clear the input
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == removeEmployeeButton) {
+				conditions:
 				try {
 					for(Employee selectedEmployee: allEmployees) {
 						if(selectedEmployee.getId() == Integer.parseInt(removeEmployeeField.getText()))
 						{
 							assigner.removeEmployee(selectedEmployee, allEmployees);
-							clearFields();
-							break;
+							clearInput();
+							break conditions;
 						}
 					}
-					clearFields();
+					JOptionPane.showMessageDialog(RemoveEmployeePanel.this, "Please Enter a Valid Value", 
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+					clearInput();
 											
 				} catch (Exception exception) {
 					JOptionPane.showMessageDialog(RemoveEmployeePanel.this, "Please Enter a Valid Value", 
                             "ERROR", JOptionPane.ERROR_MESSAGE);
-					clearFields();
+					clearInput();
 				}
 			}
 			// If the clearButton was clicked it will call the clearFields method
-			if (e.getSource() == clearButton) {
-				clearFields();
+			else {
+				clearInput();
 			}
 		}	
 	}
 	
-	
-	public void clearFields() {
+	/**
+	 * This method will set the different components back to what they
+	 * were when first run 
+	 */
+	public void clearInput() {
 		removeEmployeeField.setText("");
 		viewEmployeesAreaText = ("");
 

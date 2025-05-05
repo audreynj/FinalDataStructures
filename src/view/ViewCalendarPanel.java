@@ -28,7 +28,7 @@ public class ViewCalendarPanel extends JPanel{
 	//TextArea to display calendar text
 	private String calendarAreaText = "";
 
-	//Initialize allEmployees and allShifts
+	//Declare allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
@@ -58,7 +58,6 @@ public class ViewCalendarPanel extends JPanel{
 		// Adds the ButtonListener to both JButtons
 		updateCalendarButton.addActionListener(bl);
 
-		
 		
 		//Use JScrollPane for JTextArea and setEditable(false)
 		String calendarAreaText = "";	

@@ -21,13 +21,12 @@ import model.Employee;
 import model.Shift;
 
 public class ViewAllEmployeesPanel extends JPanel{
-
 	//Create components of panel
 	private JButton updateViewButton = new JButton("Update Employees");
 	private JTextArea viewEmployeesArea = new JTextArea(10, 70);
 	private String viewEmployeesAreaText = "";
 
-	//Initialize allEmployees and allShifts
+	//Declare allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 
@@ -48,6 +47,7 @@ public class ViewAllEmployeesPanel extends JPanel{
 	
 
 	public ViewAllEmployeesPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -63,9 +63,7 @@ public class ViewAllEmployeesPanel extends JPanel{
 
 		viewEmployeesArea.setEnabled(false);
 		viewEmployeesArea.setDisabledTextColor(Color.BLACK);
-		
-
-		
+	
 		JScrollPane scroll = new JScrollPane(viewEmployeesArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scroll);
 		
@@ -74,7 +72,7 @@ public class ViewAllEmployeesPanel extends JPanel{
 
 	}
 		
-	//This method uses Selection Sort
+	//This method uses Selection Sort to display employees by id number
 	public void SetTextArea() {
 		viewEmployeesAreaText = "";
 
@@ -104,10 +102,9 @@ public class ViewAllEmployeesPanel extends JPanel{
 		
 	}
 
-		//Will add removeEmployee() later, might have button in this file
 	class ButtonListener implements ActionListener 
 	{
-
+		//ButtonListener will update the panel if the button is pressed
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{

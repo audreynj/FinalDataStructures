@@ -24,8 +24,11 @@ import javax.swing.SpinnerListModel;
 import model.Employee;
 import model.Shift;
 
-public class AddShiftPanel extends JPanel{
+public class AddShiftPanel extends JPanel{	
+	//List with values for spinners
+	private Integer[] hoursOfDay = {0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
 
+	//Create components for the panel
 	private JButton addShiftButton = new JButton("Add Shift");
 	private JButton clearButton = new JButton("Clear");
 
@@ -33,10 +36,6 @@ public class AddShiftPanel extends JPanel{
 	private JLabel startTimeLabel = new JLabel("Start Time: ");
 	private JLabel endTimeLabel = new JLabel("End Time: ");
 	private JLabel priorityLabel = new JLabel("Priority: ");
-	
-	//List with values for spinners
-	private Integer[] hoursOfDay = {0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};
-	
 	
 	private JSpinner startTimeSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
 	private JSpinner endTimeSpinner = new JSpinner(new SpinnerListModel(hoursOfDay));
@@ -58,13 +57,13 @@ public class AddShiftPanel extends JPanel{
 	private JRadioButton priorityHigh = new JRadioButton("High");
 	private JRadioButton priorityLow = new JRadioButton("Low");
 	
-	
-	
-		
+
+	//Declare allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 
 	
+	//Getter and setter methods
 	public ArrayList<Employee> getAllEmployees() {
 		return allEmployees;
 	}
@@ -80,6 +79,7 @@ public class AddShiftPanel extends JPanel{
 	
 	
 	public AddShiftPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -167,12 +167,13 @@ public class AddShiftPanel extends JPanel{
 		
 	
 		class ButtonListener implements ActionListener {
-
+			//ButtonListener will add a new shift or clear in input depending on which button is selected
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == addShiftButton) {
 					conditions:
 					try {
+						//This if, else if chain figures out which day is selected
 						String day = "";
 						if(dayM.isSelected()) {
 							day = dayM.getText();
@@ -195,10 +196,10 @@ public class AddShiftPanel extends JPanel{
 						else {
 							JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Select a Day", 
 	                                "ERROR", JOptionPane.ERROR_MESSAGE);
-							clearFields();
 							break conditions;
 						}
 						
+						//This if, else if chain figures out which priority is selected
 						String priority = "";
 						if(priorityImportant.isSelected()) {
 							priority = priorityImportant.getText();
@@ -212,52 +213,58 @@ public class AddShiftPanel extends JPanel{
 						else {
 							JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Select a Priority", 
 	                                "ERROR", JOptionPane.ERROR_MESSAGE);
-							clearFields();
 							break conditions;						
 							}
 						
-						
+						//If the inputed hours are valid it will add the shift to the queue
 						if((Integer)startTimeSpinner.getValue() < (Integer)endTimeSpinner.getValue()) {
-							Shift newShift = new Shift(day, (Integer)startTimeSpinner.getValue(),
-									(Integer)endTimeSpinner.getValue(),  priority, allShifts);
+							if((Integer)startTimeSpinner.getValue() != 0) {
+								Shift newShift = new Shift(day, (Integer)startTimeSpinner.getValue(),
+										(Integer)endTimeSpinner.getValue(),  priority, allShifts);
 
-							allShifts.add(newShift);
+								allShifts.add(newShift);
+								clearInput();
+							}
+							else{
+								JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Put in Correct Hours", 
+		                                "ERROR", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 						else{
 							JOptionPane.showMessageDialog(AddShiftPanel.this, "Make Sure to Put in Correct Hours", 
 	                                "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
-
-						clearFields();
-												
+						}												
 					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(AddShiftPanel.this, "Please Enter All Valid Values", 
                                 "ERROR", JOptionPane.ERROR_MESSAGE);
-						clearFields();
 					}
 				}
-				// If the clearButton was clicked it will call the clearFields method
-				if (e.getSource() == clearButton) {
-					clearFields();
+				else {
+					clearInput();
 				}
 			}	
 	}
-		
-		
-	public void clearFields() {
-		startTimeSpinner.setValue(0);
-		endTimeSpinner.setValue(0);
-		priorityGroup.clearSelection();
-		dayGroup.clearSelection();
-		}
 	
-	
-	
+	/**
+	 * This method restricts the spinner components to be changed by the arrows only
+	 */	
 	public void restrictSpinnerToArrows(JSpinner selectedSpinner) {
 		if (selectedSpinner.getEditor() instanceof JSpinner.DefaultEditor ) {
 			   JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) selectedSpinner.getEditor();
 			   editor.getTextField().setEnabled( true );
 			   editor.getTextField().setEditable( false );
 		}	
+	}
+	
+	
+	/**
+	 * This method will set the different components back to what they
+	 * were when first run 
+	 */
+	public void clearInput() {
+		startTimeSpinner.setValue(0);
+		endTimeSpinner.setValue(0);
+		priorityGroup.clearSelection();
+		dayGroup.clearSelection();
 	}
 }

@@ -26,7 +26,7 @@ import model.Employee;
 import model.Shift;
 
 public class RemoveShiftPanel extends JPanel{
-	
+
 	//Create components for the panel
 	private JButton removeShiftButton = new JButton("Remove Shift");
 	private JButton clearButton = new JButton("Clear");
@@ -38,7 +38,7 @@ public class RemoveShiftPanel extends JPanel{
 	private JTextArea viewShiftsArea = new JTextArea(10, 70);
 	private String viewShiftsAreaText = "";
 	
-	//Initialize allEmployees, allShifts, and assigner
+	//Declare allEmployees, allShifts, and assigner
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
@@ -72,6 +72,7 @@ public class RemoveShiftPanel extends JPanel{
 		updateViewButton.addActionListener(bl);
 
 		
+		//Use JScrollPane for JTextArea and setEditable(false)
 		for(Shift selectedShift:allShifts) {
 			if(!selectedShift.isShiftTaken()) {
 				viewShiftsAreaText = viewShiftsAreaText + selectedShift.toString() + "\n";
@@ -82,9 +83,9 @@ public class RemoveShiftPanel extends JPanel{
 		viewShiftsArea.setEnabled(false);
 		viewShiftsArea.setDisabledTextColor(Color.BLACK);
 				
-		//Use JScrollPane for JTextArea and setEditable(false)
 		JScrollPane scroll = new JScrollPane(viewShiftsArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scroll);
+		
 		
 		// Adds the components to the panel by using GroupLayout
 		GroupLayout layout = new GroupLayout(this);
@@ -120,37 +121,44 @@ public class RemoveShiftPanel extends JPanel{
 	
 	class ButtonListener implements ActionListener {
 
+		//ButtonListener will remove a shift or clear the input
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == removeShiftButton) {
+				conditions:
 				try {
 					for(Shift selectedShift: allShifts) {
 						if(!selectedShift.isShiftTaken()) {
 							if(selectedShift.getId() == Integer.parseInt(removeShiftField.getText()))
 							{
 								assigner.removeShift(selectedShift, allShifts);
-								clearFields();
-								break;
+								clearInput();
+								break conditions;
 							}
 						}
 					}
-					clearFields();
+					JOptionPane.showMessageDialog(RemoveShiftPanel.this, "Please Enter a Valid Value", 
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+					clearInput();
 											
 				} catch (Exception exception) {
 					JOptionPane.showMessageDialog(RemoveShiftPanel.this, "Please Enter a Valid Value", 
                             "ERROR", JOptionPane.ERROR_MESSAGE);
-					clearFields();
+					clearInput();
 				}
 			}
 			// If the clearButton was clicked it will call the clearFields method
-			if (e.getSource() == clearButton) {
-				clearFields();
+			else{
+				clearInput();
 			}
 		}	
 	}
 	
-	
-	public void clearFields() {
+	/**
+	 * This method will set the different components back to what they
+	 * were when first run 
+	 */
+	public void clearInput() {
 		removeShiftField.setText("");
 		viewShiftsAreaText = ("");
 

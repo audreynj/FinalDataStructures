@@ -26,23 +26,23 @@ import model.Employee;
 import model.Shift;
 
 public class UnassignShiftPanel extends JPanel{
+	//Create components for the panel
 	private JButton removeShiftButton = new JButton("Unassign Shift");
 	private JButton clearButton = new JButton("Clear");
 	private JButton updateViewButton = new JButton("Update Shift List");
-
-
+	
 	private JLabel removeLabel = new JLabel("Remove Shift: ");
 	private JTextField removeShiftField = new JTextField(8);
 
-	
 	private JTextArea viewShiftsArea = new JTextArea(10, 70);
 	private String viewShiftsAreaText = "";
 	
-	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
-
-	//Create allEmployees and allShifts
+	
+	//Declare allEmployees, allShifts, and assigner
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
+	private AssignShiftToEmployee assigner = new AssignShiftToEmployee();
+
 	
 	//Getter and Setters
 	public ArrayList<Employee> getAllEmployees() {
@@ -59,6 +59,7 @@ public class UnassignShiftPanel extends JPanel{
 	}
 	
 	public UnassignShiftPanel(ArrayList<Employee> allEmployees, PriorityQueue<Shift> allShifts) {
+		//Set up allEmployees and allShifts
 		setAllEmployees(allEmployees);
 		setAllShifts(allShifts);
 		
@@ -70,7 +71,7 @@ public class UnassignShiftPanel extends JPanel{
 		clearButton.addActionListener(bl);
 		updateViewButton.addActionListener(bl);
 
-		
+		//Use JScrollPane for JTextArea and setEditable(false)
 		for(Shift selectedShift:allShifts) {
 			if(selectedShift.isShiftTaken()) {
 				viewShiftsAreaText = viewShiftsAreaText + selectedShift.toString() + "\n";
@@ -119,33 +120,40 @@ public class UnassignShiftPanel extends JPanel{
 	
 	class ButtonListener implements ActionListener {
 
+		//ButtonListener will remove the selected Employee or throw an error. Both options will clear the input
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == removeShiftButton) {
+				conditions:
 				try {
 					for(Shift selectedShift: allShifts) {
 						if(selectedShift.isShiftTaken() && selectedShift.getId() == Integer.parseInt(removeShiftField.getText())) {	
 							assigner.unassignShift(selectedShift, allEmployees);
-							break;
+							clearInput();
+							break conditions;
 							}
 						}
-					clearFields();
-											
+
+					JOptionPane.showMessageDialog(UnassignShiftPanel.this, "Please Enter a Valid Value", 
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception exception) {
 					JOptionPane.showMessageDialog(UnassignShiftPanel.this, "Please Enter a Valid Value", 
                             "ERROR", JOptionPane.ERROR_MESSAGE);
-					clearFields();
+					clearInput();
 				}
 			}
 			// If the clearButton was clicked it will call the clearFields method
 			else{
-				clearFields();
+				clearInput();
 			}
 		}	
 	}
 	
-	
-	public void clearFields() {
+	/**
+	 * This method will set the different components back to what they
+	 * were when first run 
+	 */
+	public void clearInput() {
 		removeShiftField.setText("");
 		viewShiftsAreaText = ("");
 

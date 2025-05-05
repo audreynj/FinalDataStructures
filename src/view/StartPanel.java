@@ -7,22 +7,16 @@
 package view;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 import model.Employee;
 import model.Shift;
 
 public class StartPanel extends JPanel{
 
-	//Create allEmployees and allShifts
+	//Declare allEmployees and allShifts
 	private ArrayList<Employee> allEmployees;
 	private PriorityQueue<Shift> allShifts;
 	
@@ -50,7 +44,10 @@ public class StartPanel extends JPanel{
 		setAllShifts(allShifts);
 		
 		//Text and properties for startPanelArea
-		startPanelArea.setText("This program is used to determine the best employee for a shift. \nThe inputted hours should be in military time, and a zero means you can not work at that time. ");	
+		startPanelArea.setText("This program is used to determine an employee for a shift."
+				+ " \nThe inputted hours should be in military time, and a zero means you can not work at that time. \n"
+				+ "This code is based on my current job, with 6 work days and shifts starting from 5 and ending at 11pm."
+				+ "\n Select the tabs above to add or assign, delete or unassign, or view shifts and employees created. ");	
 		startPanelArea.setEnabled(false);
 		startPanelArea.setDisabledTextColor(Color.BLACK);
 		

@@ -9,13 +9,13 @@ package model;
 import java.util.ArrayList;
 
 public class Employee {
+	//Declaring properties of Shift 
 	private int id;
 	private int wantedHours;
 	private int remainingWantedHours;
 	private String name;
 	private ArrayList<Integer> hoursAvailable;
 	private ArrayList<Shift> shiftsTaken;
-	
 	private int numOfDaysCanWork;
 
 	
@@ -73,7 +73,6 @@ public class Employee {
 	public ArrayList<Shift> getShiftsTaken() {
 		return shiftsTaken;
 	}
-	
 	public String getShiftsTakenMessage() {
 		String allShifts = "";
 		for(int i = 0; i<shiftsTaken.size(); i++) {
@@ -81,34 +80,34 @@ public class Employee {
 		}
 		return allShifts;
 	}
-
 	public void setShiftsTaken(ArrayList<Shift> shiftsTaken) {
 		this.shiftsTaken = shiftsTaken;
 	}	
-	
 	public int getNumOfDaysCanWork() {
 		return numOfDaysCanWork;
 	}
-
-
 	public void setNumOfDaysCanWork(int numOfDaysCanWork) {
 		this.numOfDaysCanWork = numOfDaysCanWork;
 	}
-
-
 	public void addShift(Shift enteredShift) {
 		this.shiftsTaken.add(enteredShift);
 		
 		this.remainingWantedHours = this.remainingWantedHours - enteredShift.getShiftLength();
 	}
 
-
+	
+    /**
+	 * @return String of all properties of Employee but the shifts they cover
+	 */
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", wantedHours=" + wantedHours + ", remainingWantedHours=" + remainingWantedHours
 				+ ", name=" + name + ", hoursAvailable=" + hoursAvailable + "]";
 	}
 	
+    /**
+	 * @return String of all properties of Employee including all shifts they are covering
+	 */
 	public String calendarText() {
 		return "Employee [id=" + id + ", wantedHours=" + wantedHours + ", remainingWantedHours=" + remainingWantedHours
 				+ ", name=" + name + ", hoursAvailable=" + hoursAvailable + ", shiftsTaken=" + shiftsTaken + "]";

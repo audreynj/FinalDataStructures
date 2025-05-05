@@ -11,7 +11,10 @@ import java.util.PriorityQueue;
 
 public class AssignShiftToEmployee {
 
-	//Need to call this when looking at AssignShiftPanel
+    /**
+     * @param allEmployees, selectedShift
+	 * @return ArrayList<Employee> of eligible employees based on the selected shift
+	 */
 	public ArrayList<Employee> determineEligibleEmployeesList(ArrayList<Employee> allEmployees, Shift selectedShift) {
 		
 		
@@ -27,6 +30,10 @@ public class AssignShiftToEmployee {
 	}
 	
 	
+	/**
+     * @param enteredShift, enteredEmployee
+	 * @return boolean depending if an employee can cover the entered shift
+	 */
 	public boolean ifEmployeeWork(Shift enteredShift, Employee enteredEmployee) {
 		if(enteredEmployee.getRemainingWantedHours()>0)
 		{
@@ -73,13 +80,16 @@ public class AssignShiftToEmployee {
 		return false;
 	}
 	
+	/**
+     * @param enteredShift, employeeList
+	 * @return ArrayList<Employee> of the employee list sorted
+	 */
 	public ArrayList<Employee> sortByTime(Shift enteredShift, ArrayList<Employee> employeeList) {		
 		
 		ArrayList<Employee> sortedEmployeeList = new ArrayList<Employee>();
 		int numOfWorkWeek = 0;
 		ArrayList<Employee> employeesAvailable = new ArrayList<Employee>();
 				
-		//Adds all employees that do not have any hours filled to the top first, also ordered by number of days they can work
 		while(numOfWorkWeek < 7) {
 			for(Employee selectedEmployee: employeeList) {
 				if(selectedEmployee.getNumOfDaysCanWork() == numOfWorkWeek) {
@@ -105,60 +115,41 @@ public class AssignShiftToEmployee {
 					employeesAvailable.add(selectedEmployee);
 			        }		
 			}
-			/**			//START FROM HERE TO CONTINUE DEBUGGING
-			//Sorts using a selection sort that looks to compare employees that have the same number of days available
-			//by the number of hours they are currently signed up for
-			for (int i = 0; i < employeeList.size() - 1; i++) {
-	              
-	            // Find the minimum element in unsorted array
-	            int min_idx = i;
-	          
-	            for (int j = i + 1; j < employeeList.size(); j++) {
-	                if ((employeeList.get(j).getWantedHours()-employeeList.get(j).getRemainingWantedHours()) < (employeesAvailable.get(min_idx).getWantedHours()-employeesAvailable.get(min_idx).getRemainingWantedHours()))
-	                    min_idx = j;
-	            }
-
-	            // Swap the found minimum element with the first
-	            // element
-	            Employee temp = employeeList.get(min_idx);
-	            employeeList.set(min_idx, employeeList.get(i));
-	            employeeList.set(i, temp);
-		
-			}
-			**/
 			numOfWorkWeek++;
 		}
 		
 		employeeList.removeAll(employeesAvailable);
 		employeesAvailable.clear();
-		
-		
-		//Less days are automatically at the top of the list
-		
-		//Check to see if a person has worked any hours, if not they are higher up
-		
-			//Check to see how many hours they want vs how many they have
-			//Larger difference is higher than ones with almost all their hours 
 			
 		return sortedEmployeeList;
 	}
 	
-	
+	/**Assigns a shift to an employee
+     * @param selectedEmployee, selectedShift, allAvailableAShifts
+	 */
 	public void assignShift(Employee selectedEmployee, Shift selectedShift, PriorityQueue<Shift> allAvailableAShifts) {
 		selectedEmployee.addShift(selectedShift);
 		
 		selectedShift.setShiftTaken(true);
 		}	
 	
+	/**Removes the selected shift from the queue
+     * @param selectedShift, allAvailableAShifts
+	 */
 	public void removeShift(Shift selectedShift, PriorityQueue<Shift> allAvailableAShifts) {		
 		allAvailableAShifts.remove(selectedShift);
 		}	
 	
+	/**Remove the selected employee from the arraylist
+     * @param selectedEmployee, allEmployees
+	 */
 	public void removeEmployee(Employee selectedEmployee, ArrayList<Employee> allEmployees) {		
 		allEmployees.remove(selectedEmployee);
 		}	
 	
-	
+	/**Unassigns the selected shift from the employee
+     * @param selectedShift, allEmployees
+	 */
 	public void unassignShift(Shift selectedShift, ArrayList<Employee> allEmployees) {
 		for(Employee selectedEmployee:allEmployees) {
 			for(Shift selectedEmployeeShift:selectedEmployee.getShiftsTaken()) {
